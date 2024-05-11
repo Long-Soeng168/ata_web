@@ -1,6 +1,6 @@
 ## How to clone project
 Hello world
-- git clone https://github.com/Long-Soeng168/pos-tomato.git
+- git clone https://github.com/Long-Soeng168/bunjun-ata.git
 - composer install
 - cp .env.example .env
 - php artisan key:generate
