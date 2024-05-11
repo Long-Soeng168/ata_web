@@ -1,14 +1,19 @@
 ## How to clone project
 Hello world
-- git clone https://github.com/Long-Soeng168/bunjun-ata.git
+- git clone https://github.com/Long-Soeng168/ataBunjun.git
+- cd ataBunjun
 - composer install
 - cp .env.example .env
 - php artisan key:generate
 - php artisan migrate
 - php artisan db:seed --class="UserRolePermissionSeeder"
-- npm install
-- npm run build (or npm run dev)
+- npm install (or sudo npm install)
+- npm run build (or sudo npm run build)
 - php artisan serve
+
+## Default User
+- user : superadmin@gmail.com
+- pw : superadmin@123
 
 ## About this Project
 this project we aim for initialize laravel with all dependencies required
