@@ -31,11 +31,32 @@ Route::get('/symlink', function () {
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'admin',
+    'as' => 'admin'
+], function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/create', [DashboardController::class, 'create'])->name('dashboard.create');
+    Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboard.store');
+    Route::get('/dashboard/{id}', [DashboardController::class, 'show'])->name('dashboard.show');
+    Route::get('/dashboard/{id}/edit', [DashboardController::class, 'edit'])->name('dashboard.edit');
+    Route::put('/dashboard/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
+    Route::delete('/dashboard/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+});
+
+
+
+
 Route::group([
     'middleware' => 'auth',
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function() {
+
     Route::resource('dashboard', DashboardController::class );
     Route::resource('users', AdminUserController::class );
     Route::resource('customers', CustomerController::class );
