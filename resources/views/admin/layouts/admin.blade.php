@@ -324,7 +324,7 @@
         <aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidenav" id="drawer-navigation">
             <a href="/" class="flex items-center justify-center mt-4">
                 <img src="{{ asset('assets/images/logo/tomato.png') }}" class="mr-3 h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">POS Potato</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Potato</span>
             </a>
             <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
 
