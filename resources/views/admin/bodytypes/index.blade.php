@@ -54,11 +54,11 @@
         </div>
         <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 
-            <x-primary-button href="{{ route('admin.types.create') }}">
+            <x-primary-button href="{{ route('admin.bodytypes.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
-                Add Type
+                Add Body Type
             </x-primary-button>
 
             <div class="flex items-center space-x-3 w-full md:w-auto">
@@ -88,12 +88,11 @@
                     <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col" class="px-4 py-3">Name</th>
                     <th scope="col" class="px-4 py-3">Name KH</th>
-                    <th scope="col" class="px-4 py-3">Code</th>
                     <th scope="col" class="text-center py-3">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($types as $type)
+                @forelse ($bodytypes as $bodytype)
                 <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <td class="w-4 px-4 py-3">
                         <div class="flex items-center">
@@ -104,32 +103,31 @@
                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png" alt="iMac Front Image" class="w-auto h-10 mr-3">
                     </th>
-                    <x-table-data value="{{ $type->name }}"/>
-                    <x-table-data value="{{ $type->name_kh }}"/>
-                    <x-table-data value="{{ $type->code }}"/>
+                    <x-table-data value="{{ $bodytype->name }}"/>
+                    <x-table-data value="{{ $bodytype->name_kh }}"/>
 
 
                     <td class="px-6 py-4">
                         <div class="flex items-start gap-3 justify-center">
                             <x-add-more-button
-                            identifier="{{ $type->id }}"
+                            identifier="{{ $bodytype->id }}"
                             addMoreUrl="{{ route('admin.addmore') }}"
                             tooltipText="Add More"
                             />
                             <x-view-detail-button
-                            identifier="{{ $type->id }}"
-                            viewDetailUrl="{{ route('admin.types.show', $type->id) }}"
+                            identifier="{{ $bodytype->id }}"
+                            viewDetailUrl="{{ route('admin.bodytypes.show', $bodytype->id) }}"
                             tooltipText=" View type details"
                             />
                             <x-delete-confirm-button
-                            identifier="{{ $type->id }}"
-                            deleteUrl="{{ route('admin.types.destroy', $type->id) }}"
+                            identifier="{{ $bodytype->id }}"
+                            deleteUrl="{{ route('admin.bodytypes.destroy', $bodytype->id) }}"
                             message="Are you sure you want to delete this type"
                             tooltipText="Delete type"
                             />
                             <x-edit-button
-                            identifier="{{ $type->id }}"
-                            editUrl="{{ route('admin.types.edit', $type->id) }}"
+                            identifier="{{ $bodytype->id }}"
+                            editUrl="{{ route('admin.bodytypes.edit', $bodytype->id) }}"
                             tooltipText="Edit type"
                             />
                         </div>
@@ -144,7 +142,7 @@
         </table>
 
         <div class="p-4">
-            {{ $types->links() }}
+            {{ $bodytypes->links() }}
         </div>
     </div>
 </div>

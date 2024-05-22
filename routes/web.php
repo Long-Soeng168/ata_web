@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AllItemController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ModelController;
+use App\Http\Controllers\Admin\BodyTypeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -15,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DtcController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +47,11 @@ Route::group([
     Route::resource('users', AdminUserController::class );
     Route::resource('customers', CustomerController::class );
     Route::resource('items', ItemController::class );
+    Route::resource('allitems', AllItemController::class );
     Route::resource('categories', CategoryController::class );
+    Route::resource('bodytypes', BodyTypeController::class );
+    Route::resource('brands', BrandController::class );
+    Route::resource('models', ModelController::class );
     Route::resource('types', TypeController::class );
 
     Route::resource('settings', SettingsController::class );
@@ -50,6 +59,7 @@ Route::group([
 
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
+    Route::resource('shops', ShopController::class);
 
 
 

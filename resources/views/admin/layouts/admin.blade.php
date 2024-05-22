@@ -326,7 +326,7 @@
                 <img src="{{ asset('assets/images/logo/tomato.png') }}" class="mr-3 h-8" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Potato</span>
             </a>
-            <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+            <div class="overflow-y-auto py-5 px-3 pb-[120px] h-full bg-white dark:bg-gray-800">
 
                 <ul class="space-y-2">
                     <li>
@@ -374,6 +374,22 @@
                         </x-sidebar-item>
                     </li>
                     <li>
+                        <x-sidebar-item href="{{ route('admin.shops.index') }}"
+                        class="{{ request()->is('admin/shops*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
+                            <span class="ml-3">Shops</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.allitems.index') }}"
+                        class="{{ request()->is('admin/allitems*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
+                            <span class="ml-3">All Items</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
                         <x-sidebar-item href="{{ route('admin.items.index') }}"
                         class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
@@ -390,11 +406,35 @@
                         </x-sidebar-item>
                     </li>
                     <li>
+                        <x-sidebar-item href="{{ route('admin.bodytypes.index') }}"
+                            class="{{ request()->is('admin/bodytypes*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <span class="ml-3">Body Types</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.brands.index') }}"
+                            class="{{ request()->is('admin/brands*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <span class="ml-3">Brands</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.models.index') }}"
+                            class="{{ request()->is('admin/models*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <span class="ml-3">Models</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
                         <x-sidebar-item href="{{ route('admin.types.index') }}"
                             class="{{ request()->is('admin/types*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Types or Brands</span>
+                            <span class="ml-3">Types</span>
                         </x-sidebar-item>
                     </li>
                     <li>

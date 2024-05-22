@@ -12,11 +12,7 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        $shopId = $request->user()->shop_id;
-        $types = [];
-        if($shopId) {
-            $types = Type::where('shop_id', $shopId)->get();
-        }
+        $types = Type::paginate(10);
         // dd($types, $shopId);
         return view('admin.types.index', [
             'types' => $types,

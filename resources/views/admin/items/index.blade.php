@@ -157,6 +157,10 @@
 
             </tbody>
         </table>
+
+        <div class="p-4">
+            {{ $items->links() }}
+        </div>
     </div>
 </div>
 

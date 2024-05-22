@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $categories = Category::paginate(10);
-        return view('admin.categories.index', [
-            'categories' => $categories,
+        $brands = Brand::paginate(10);
+        // dd($brands, $shopId);
+        return view('admin.brands.index', [
+            'brands' => $brands,
         ]);
     }
 
@@ -23,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.brands.create');
     }
 
     /**
@@ -37,15 +38,13 @@ class CategoryController extends Controller
             'name_kh' => 'required|max:255',
         ]);
 
-        $category = Category::create([
-            'shop_id' => $request->user()->shop_id,
+        $type = Brand::create([
             'create_by_user_id' => $request->user()->id,
             'name' => $request->name,
             'name_kh' => $request->name_kh,
-            'code' => $request->code,
         ]);
 
-        return redirect('/admin/categories')->with('status', 'Add Category Successful');
+        return redirect('/admin/brands')->with('status', 'Add type Successful');
 
     }
 
@@ -78,7 +77,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        Category::destroy($id);
+        Brand::destroy($id);
         return redirect()->back()->with('status', 'Delete Successful');
     }
 }

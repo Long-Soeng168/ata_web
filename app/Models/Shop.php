@@ -16,6 +16,11 @@ class Shop extends Model
         return $this->hasMany(User::class, 'shop_id', 'id');
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_user_id', 'id');
+    }
+
     public function categories() {
         return $this->hasMany(Category::class, 'shop_id', 'id');
     }

@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\BrandModel;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ModelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $categories = Category::paginate(10);
-        return view('admin.categories.index', [
-            'categories' => $categories,
+        $models = BrandModel::paginate(10);
+        // dd($models, $shopId);
+        return view('admin.models.index', [
+            'models' => $models,
         ]);
     }
 
@@ -23,7 +25,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $brands = Brand::all();
+        return view('admin.models.create', [
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -35,17 +40,17 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'name_kh' => 'required|max:255',
+            'brand_id' => 'required',
         ]);
 
-        $category = Category::create([
-            'shop_id' => $request->user()->shop_id,
+        $type = BrandModel::create([
             'create_by_user_id' => $request->user()->id,
             'name' => $request->name,
             'name_kh' => $request->name_kh,
-            'code' => $request->code,
+            'brand_id' => $request->brand_id,
         ]);
 
-        return redirect('/admin/categories')->with('status', 'Add Category Successful');
+        return redirect('/admin/models')->with('status', 'Add type Successful');
 
     }
 
@@ -78,7 +83,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        Category::destroy($id);
+        BrandModel::destroy($id);
         return redirect()->back()->with('status', 'Delete Successful');
     }
 }
