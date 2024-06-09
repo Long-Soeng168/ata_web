@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DtcController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------

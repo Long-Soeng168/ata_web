@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\DtcController;
 use App\Http\Controllers\Api\SlideController;
+use App\Http\Controllers\Api\ShopController;
 
 use App\Http\Controllers\Api\AuthController;
 /*
@@ -36,3 +37,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::resource('dtcs', DtcController::class);
 Route::resource('slides', SlideController::class);
+Route::resource('shops', ShopController::class);
