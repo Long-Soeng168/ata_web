@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     /**
@@ -17,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::with('brand', 'brand_model')->limit(10)->get();
+        // return $products;
         return view('admin.products.index', [
             'products' => $products,
         ]);
