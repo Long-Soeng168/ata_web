@@ -398,6 +398,14 @@
                         </x-sidebar-item>
                     </li>
                     <li>
+                        <x-sidebar-item href="{{ route('admin.products.index') }}"
+                        class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
+                            <span class="ml-3">Products</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
                         <x-sidebar-item href="{{ route('admin.categories.index') }}"
                             class="{{ request()->is('admin/categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
