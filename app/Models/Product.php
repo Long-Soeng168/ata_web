@@ -27,4 +27,8 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+    public function body_type()
+    {
+        return $this->belongsTo(BodyType::class, 'body_type_id', 'id');
+    }
 }

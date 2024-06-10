@@ -145,7 +145,7 @@
                             </td>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ asset('images/' . $product->profile_picture) }}" alt="{{ $product->name }}"
+                                <img src="{{ asset('assets/images/products/thumb/' . $product->image) }}" alt="{{ $product->name }}"
                                     class="object-cover h-10 mr-3 aspect-video">
                             </th>
                             <x-table-data value="{{ $product->name }}" />
@@ -164,11 +164,11 @@
                                     class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->brand?->name }}</span>
                             </x-table-data>
                             <x-table-data value="{{ $product->brand_model?->name }}" />
-                            <x-table-data value="{{ $product->body_type_id }}" />
+                            <x-table-data value="{{ $product->body_type?->name }}" />
                             {{-- <x-table-data value="{{ $product->category_id }}"/> --}}
                             <x-table-data>
                                 <span
-                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->category?->name }}</span>
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->categories?->name }}</span>
                             </x-table-data>
                             <x-table-data value="{{ $product->sub_category_id }}" />
                             <x-table-data value="{{ $product->status }}" />
@@ -205,7 +205,7 @@
             </table>
 
             <div class="p-4">
-                {{-- {{ $products->links() }} --}}
+                {{ $products->links() }}
             </div>
         </div>
     </div>

@@ -28,16 +28,16 @@
             <div class="grid mt-4 md:grid-cols-3 md:gap-6">
                 <!-- Code and Price -->
                 <div>
+                    <x-input-label for="price" :value="__('Price')" /><span class="text-red-500">*</span>
+                    <x-text-input id="price" class="block w-full mt-1" type="number" name="price" :value="old('price')"
+                        placeholder="Price" />
+                    <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                </div>
+                <div>
                     <x-input-label for="code" :value="__('Code or Barcode')" />
                     <x-text-input id="code" class="block w-full mt-1" type="text" name="code" :value="old('code')"
                         placeholder="Code" />
                     <x-input-error :messages="$errors->get('code')" class="mt-2" />
-                </div>
-                <div>
-                    <x-input-label for="price" :value="__('Price')" />
-                    <x-text-input id="price" class="block w-full mt-1" type="number" name="price" :value="old('price')"
-                        placeholder="Price" />
-                    <x-input-error :messages="$errors->get('price')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="discount" :value="__('Discount % ')" />
