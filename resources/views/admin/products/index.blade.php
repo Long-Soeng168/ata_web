@@ -145,8 +145,8 @@
                             </td>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ asset('assets/images/products/thumb/' . $product->image) }}" alt="{{ $product->name }}"
-                                    class="object-cover h-10 mr-3 aspect-video">
+                                <img src="{{ asset('assets/images/products/thumb/' . $product->image) }}"
+                                    alt="{{ $product->name }}" class="object-cover h-10 mr-3 aspect-video">
                             </th>
                             <x-table-data value="{{ $product->name }}" />
                             <x-table-data value="{{ $product->description }}" />
@@ -168,7 +168,7 @@
                             {{-- <x-table-data value="{{ $product->category_id }}"/> --}}
                             <x-table-data>
                                 <span
-                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->categories?->name }}</span>
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->category?->name }}</span>
                             </x-table-data>
                             <x-table-data value="{{ $product->sub_category_id }}" />
                             <x-table-data value="{{ $product->status }}" />

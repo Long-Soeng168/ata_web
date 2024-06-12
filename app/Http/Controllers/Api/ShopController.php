@@ -30,8 +30,8 @@ class ShopController extends Controller
 
     public function edit($id)
     {
-        $dtc = Shop::findOrFail($id);
-        return $dtc;
+        $shop = Shop::findOrFail($id);
+        return $shop;
         // return view('admin.shops.edit', compact('dtc'));
     }
 
