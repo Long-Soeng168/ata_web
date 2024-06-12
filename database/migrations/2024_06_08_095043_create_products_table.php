@@ -30,6 +30,14 @@ return new class extends Migration
             $table->tinyInteger('status')->nullable()->default(1);
 
             $table->timestamps();
+
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('set null');
+            $table->foreign('create_by_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('set null');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('set null');
+            $table->foreign('body_type_id')->references('id')->on('body_types')->onDelete('set null');
         });
     }
 

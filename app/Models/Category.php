@@ -19,4 +19,19 @@ class Category extends Model
     public function items() {
         return $this->hasMany(Item::class, 'category_id', 'id');
     }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'create_by_user_id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'update_by_user_id');
+    }
+
 }

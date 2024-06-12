@@ -3,7 +3,16 @@
 @section('content')
 <div class="p-4">
     <x-form-header :value="__('Create Category')" />
-    <form class="w-full" action="{{ route('admin.categories.store') }}" method="POST">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form class="w-full" action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid md:grid-cols-2 md:gap-6">
             <!-- Name Address -->
@@ -27,11 +36,12 @@
         <div class="my-4 mb-6">
             <div class="flex items-center space-4">
                 <div class="max-w-40">
-                    <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                    <img id="selected-image" src="#" alt="Selected Image" class="max-w-full max-h-40 pr-4" />
                 </div>
                 <div class="flex-1">
                     <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
+                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
             </div>
         </div>
@@ -45,8 +55,6 @@
             </x-submit-button>
         </div>
     </form>
-
-
 </div>
 
 <script>
@@ -59,14 +67,11 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 imgElement.src = e.target.result;
-                imgElement.classList.remove('hidden');
             };
             reader.readAsDataURL(file);
         } else {
-            imgElement.src = "#";
-            imgElement.classList.add('hidden');
+            imgElement.src = "https://via.placeholder.com/500x500?text=No+Image+Selected";
         }
     }
-
 </script>
 @endsection

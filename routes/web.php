@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DtcController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,11 +56,12 @@ Route::group([
     Route::resource('types', TypeController::class );
 
     Route::resource('settings', SettingsController::class );
-    
+
 
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
     Route::resource('shops', ShopController::class);
+    Route::resource('products', ProductController::class);
 
 
 

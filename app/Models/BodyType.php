@@ -10,4 +10,8 @@ class BodyType extends Model
     use HasFactory;
     protected $table = "body_types";
     protected $guarded = [];
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
