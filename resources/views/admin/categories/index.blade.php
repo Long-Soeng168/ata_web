@@ -102,7 +102,7 @@
                         </div>
                     </td>
                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png" alt="iMac Front Image" class="w-auto h-10 mr-3">
+                        <img src="{{ asset('assets/images/categories/thumb/' . $category->image) }}" alt="{{ $category->name }}" class="w-auto h-10 mr-3">
                     </th>
                     <x-table-data value="{{ $category->name }}"/>
                     <x-table-data value="{{ $category->name_kh }}"/>

@@ -109,6 +109,19 @@
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
+                        <div>
+                            <a href="{{ route('admin.products.index', ['sort_by' => 'name', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Sort by Name ({{ $sortDirection === 'asc' ? 'Asc' : 'Desc' }})
+                            </a> |
+                            <a href="{{ route('admin.products.index', ['sort_by' => 'price', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Sort by Price ({{ $sortDirection === 'asc' ? 'Asc' : 'Desc' }})
+                            </a> |
+                            <a href="{{ route('admin.products.index', ['sort_by' => 'created_at', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Sort by Date ({{ $sortDirection === 'asc' ? 'Asc' : 'Desc' }})
+                            </a>
+                        </div>
+                    </tr>
+                    <tr>
                         <th scope="col" class="p-4">
                             <div class="flex items-center">
                                 <input id="checkbox-all" type="checkbox"
@@ -205,7 +218,8 @@
             </table>
 
             <div class="p-4">
-                {{ $products->links() }}
+                {{-- {{ $products->links() }} --}}
+                {{ $products->appends(['sort_by' => $sortColumn, 'sort_direction' => $sortDirection])->links() }}
             </div>
         </div>
     </div>
