@@ -2,8 +2,17 @@
 
 @section('content')
 <div class="p-4">
-    <x-form-header :value="__('Create Category')" />
-    <form class="w-full" action="{{ route('admin.models.store') }}" method="POST">
+    <x-form-header :value="__('Create Model')" />
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form class="w-full" action="{{ route('admin.models.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid md:grid-cols-2 md:gap-6">
             <div>
@@ -19,7 +28,7 @@
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label for="brands" :value="__('Brand')" />
                 <x-select-option id="brands" name="brand_id">
-                    <option>Select Type...</option>
+                    <option>Select Brand...</option>
                     @forelse ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                     @empty
@@ -29,11 +38,6 @@
                 <x-input-error :messages="$errors->get('brand_id')" class="mt-2" />
             </div>
         </div>
-        {{-- <div class="pt-4">
-            <x-input-label for="code" :value="__('Code or Barcode')" />
-            <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')"  autofocus placeholder="Code" />
-            <x-input-error :messages="$errors->get('code')" class="mt-2" />
-        </div> --}}
 
         <div class="my-4 mb-6">
             <div class="flex items-center space-4">
@@ -56,8 +60,6 @@
             </x-submit-button>
         </div>
     </form>
-
-
 </div>
 
 <script>
@@ -78,6 +80,5 @@
             imgElement.classList.add('hidden');
         }
     }
-
 </script>
 @endsection

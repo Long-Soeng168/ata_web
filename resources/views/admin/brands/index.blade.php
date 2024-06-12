@@ -2,7 +2,7 @@
 @section('content')
 
 <div>
-    <x-page-header :value="__('Types')"/>
+    <x-page-header :value="__('Brands')"/>
     <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
         <div class="w-full md:w-1/2">
             <form class="flex items-center gap-4">
@@ -12,7 +12,7 @@
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search Types" required="">
+                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search brands" required="">
                 </div>
                 <div>
                     <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
@@ -88,6 +88,7 @@
                     <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col" class="px-4 py-3">Name</th>
                     <th scope="col" class="px-4 py-3">Name KH</th>
+                    <th scope="col" class="px-4 py-3">Code</th>
                     <th scope="col" class="text-center py-3">Action</th>
                 </tr>
             </thead>
@@ -101,10 +102,11 @@
                         </div>
                     </td>
                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png" alt="iMac Front Image" class="w-auto h-10 mr-3">
+                        <img src="{{ asset('assets/images/brands/thumb/' . $brand->image) }}" alt="{{ $brand->name }}" class="w-auto h-10 mr-3">
                     </th>
                     <x-table-data value="{{ $brand->name }}"/>
                     <x-table-data value="{{ $brand->name_kh }}"/>
+                    <x-table-data value="{{ $brand->code }}"/>
 
 
                     <td class="px-6 py-4">
@@ -135,7 +137,7 @@
                 </tr>
                 @empty
                     <tr >
-                        <td class="px-4 py-4">No Type or Brand</td>
+                        <td class="px-4 py-4">No Brand</td>
                     </tr>
                 @endforelse
             </tbody>
