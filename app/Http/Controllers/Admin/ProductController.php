@@ -27,7 +27,7 @@ class ProductController extends Controller
         $sortDirection = $request->get('sort_direction', 'desc'); // Default sort direction 'desc'
 
         // Retrieve products with sorting and relationships
-        $products = Product::with('brand', 'brand_model', 'categories', 'body_type')
+        $products = Product::with('brand', 'brand_model', 'category', 'body_type')
             ->orderBy($sortColumn, $sortDirection)
             ->paginate(10);
 
