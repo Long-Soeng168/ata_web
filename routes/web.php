@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AllItemController;
+use App\Http\Controllers\Admin\AppIntroController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\BrandController;
@@ -62,7 +63,7 @@ Route::group([
     Route::resource('dtcs', DtcController::class);
     Route::resource('shops', ShopController::class);
     Route::resource('products', ProductController::class);
-
+    Route::resource('appintros', AppIntroController::class );
 
 
     Route::get('addmore', function(){

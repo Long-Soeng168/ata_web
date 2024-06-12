@@ -1,22 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-use App\Models\Type;
+use App\Models\AppIntro;
 use Illuminate\Http\Request;
 use Image;
 
-class TypeController extends Controller
+class AppIntroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $types = Type::paginate(10);
-        // dd($types, $shopId);
-        return view('admin.types.index', [
-            'types' => $types,
+        $appintros = AppIntro::paginate(10);
+        return view('admin.appintros.index', [
+            'appintros' => $appintros,
         ]);
     }
 
@@ -25,30 +25,28 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.types.create');
+        return view('admin.appintros.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request ,Type $type)
+    public function store(Request $request, AppIntro $appIntro)
     {
         $request->validate([
             'name' => 'required|max:255',
-            'name_kh' => 'required|max:255',
-            'code' => 'required|max:255',
+            'description' => 'required|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $type->name = $request->name;
-        $type->name_kh = $request->name_kh;
-        $type->code = $request->code;
+        $appIntro->name = $request->name;
+        $appIntro->description = $request->description;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = public_path('assets/images/types/' . $fileName);
-            $thumbPath = public_path('assets/images/types/thumb/' . $fileName);
+            $imagePath = public_path('assets/images/body_types/' . $fileName);
+            $thumbPath = public_path('assets/images/body_types/thumb/' . $fileName);
 
             try {
                 // Create an image instance and save the original image
@@ -58,25 +56,26 @@ class TypeController extends Controller
                 Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
 
                 // Store the filename in the category
-                $type->image = $fileName;
+                $appIntro->image = $fileName;
             } catch (Exception $e) {
                 // Handle any errors that may occur during the image processing
                 return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
             }
         }
 
-        $type->save();
+        $appIntro->save();
 
-        return redirect('/admin/types')->with('status', 'Add type Successful');
+        return redirect('/admin/appintros')->with('status', 'Add App Intro Successful');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $types = Type::findOrFail($id); // Retrieve the brand with the given ID
-        return view('admin.types.show', compact('types')); // Pass the brand object to the view
+        $appIntro = AppIntro::findOrFail($id); // Retrieve the appIntro with the given ID
+        return view('admin.appintros.show', compact('appIntro')); // Pass the appIntro object to the view
     }
 
     /**
@@ -84,24 +83,27 @@ class TypeController extends Controller
      */
     public function edit(string $id)
     {
-        $types = Type::findOrFail($id); // Retrieve the brand with the given ID
-        return view('admin.types.edit', compact('types')); // Pass the brand object to the view
+        $appIntro = AppIntro::findOrFail($id); // Retrieve the appIntro with the given ID
+        return view('admin.appintros.edit', compact('appIntro')); // Pass the appIntro object to the view
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
     {
+        // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'name_kh' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
             'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Find the product by ID
-        $types = Type::findOrFail($id);
+        $appIntros = AppIntro::findOrFail($id);
 
         // Get all input data
         $input = $request->all();
@@ -114,8 +116,8 @@ class TypeController extends Controller
                 $fileName = time() . '_' . $image->getClientOriginalName();
 
                 // Define paths for the original image and the thumbnail
-                $imagePath = public_path('assets/images/types/' . $fileName);
-                $thumbPath = public_path('assets/images/types/thumb/' . $fileName);
+                $imagePath = public_path('assets/images/appintros/' . $fileName);
+                $thumbPath = public_path('assets/images/appintros/thumb/' . $fileName);
 
                 // Create an image instance and save the original image
                 $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
@@ -129,9 +131,9 @@ class TypeController extends Controller
                 $input['image'] = $fileName;
 
                 // Remove the old image files
-                if ($types->image) {
-                    @unlink(public_path('assets/images/types/' . $types->image));
-                    @unlink(public_path('assets/images/types/thumb/' . $types->image));
+                if ($appIntros->image) {
+                    @unlink(public_path('assets/images/appintros/' . $appIntros->image));
+                    @unlink(public_path('assets/images/appintros/thumb/' . $appIntros->image));
                 }
             } catch (Exception $e) {
                 // Handle any errors that may occur during the image processing
@@ -140,30 +142,33 @@ class TypeController extends Controller
         }
 
         // Update the product with the new data
-        $types->update($input);
+        $appIntros->update($input);
+
+
 
         // Redirect back to the product list with a success message
-        return redirect('/admin/types')->with('status', 'Type Updated Successfully');
+        return redirect('/admin/appintros')->with('status', 'Updated Successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $type = Type::find($id);
-        if (!$type) {
-            return redirect()->back()->withErrors(['error' => 'Type not found']);
+        $appintro = AppIntro::find($id);
+        if (!$appintro) {
+            return redirect()->back()->withErrors(['error' => 'App Intro not found']);
         }
 
         // Remove the image files
-        @unlink(public_path('assets/images/types/' . $type->image));
-        @unlink(public_path('assets/images/types/thumb/' . $type->image));
+        @unlink(public_path('assets/images/appintros/' . $appintro->image));
+        @unlink(public_path('assets/images/appintros/thumb/' . $appintro->image));
 
-        // Delete the Types
-        $type->delete();
+        // Delete the category
+        $appintro->delete();
 
-        return redirect()->back()->with('status', 'Types deleted successfully');
+        return redirect()->back()->with('status', 'Deleted successfully');
     }
-    
+
 }
