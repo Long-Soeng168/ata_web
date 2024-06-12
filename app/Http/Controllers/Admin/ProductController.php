@@ -22,20 +22,15 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-<<<<<<< HEAD
-        $products = Product::with('brand', 'brand_model','category','body_type')->paginate(10);
-        // return $products;
-=======
         // Get the sorting parameters from the request, with defaults
         $sortColumn = $request->get('sort_by', 'id');
         $sortDirection = $request->get('sort_direction', 'desc'); // Default sort direction 'desc'
 
         // Retrieve products with sorting and relationships
-        $products = Product::with('brand', 'brand_model', 'categories', 'body_type')
+        $products = Product::with('brand', 'brand_model', 'category', 'body_type')
             ->orderBy($sortColumn, $sortDirection)
             ->paginate(10);
 
->>>>>>> 9906800 (update)
         return view('admin.products.index', [
             'products' => $products,
             'sortColumn' => $sortColumn,
