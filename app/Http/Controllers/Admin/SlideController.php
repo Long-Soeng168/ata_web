@@ -14,7 +14,7 @@ class SlideController extends Controller
         $slides = Slide::paginate(10);
         return view('admin.slides.index', compact('slides'));
     }
-    
+
     public function create()
     {
         return view('admin.slides.create');
@@ -26,19 +26,19 @@ class SlideController extends Controller
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
         ]);
-        
+
         $input = $request->all();
         $image = $request->file('image');
-        if(!empty($image)){
+        if (!empty($image)) {
             $filename = time() . $image->getClientOriginalName();
-        
-            $image_path = public_path('assets/images/slides/'.$filename);
-            $image_thumb_path = public_path('assets/images/slides/thumb/'.$filename);
+
+            $image_path = public_path('assets/images/slides/' . $filename);
+            $image_thumb_path = public_path('assets/images/slides/thumb/' . $filename);
             $imageUpload = Image::make($image->getRealPath())->save($image_path);
-            $imageUpload->resize(600,null,function($resize){
+            $imageUpload->resize(600, null, function ($resize) {
                 $resize->aspectRatio();
             })->save($image_thumb_path);
-            
+
             $input['image'] = $filename;
         }
 
@@ -62,16 +62,16 @@ class SlideController extends Controller
         $slide = Slide::findOrFail($id);
         $input = $request->all();
         $image = $request->file('image');
-        if(!empty($image)){
+        if (!empty($image)) {
             $filename = time() . $image->getClientOriginalName();
-        
-            $image_path = public_path('assets/images/slides/'.$filename);
-            $image_thumb_path = public_path('assets/images/slides/thumb/'.$filename);
+
+            $image_path = public_path('assets/images/slides/' . $filename);
+            $image_thumb_path = public_path('assets/images/slides/thumb/' . $filename);
             $imageUpload = Image::make($image->getRealPath())->save($image_path);
-            $imageUpload->resize(600,null,function($resize){
+            $imageUpload->resize(600, null, function ($resize) {
                 $resize->aspectRatio();
             })->save($image_thumb_path);
-            
+
             $input['image'] = $filename;
         }
 
