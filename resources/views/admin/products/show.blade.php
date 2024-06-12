@@ -36,19 +36,15 @@
         </div>
         <div>
             <x-input-label for="model_id" :value="__('Model')" />
-            <p class="mt-1">{{ $product->models?->name }}</p>
+            <p class="mt-1">{{ $product->brand_model?->name }}</p>
         </div>
         <div>
             <x-input-label for="category_id" :value="__('Category')" />
-            <p class="mt-1">{{ $product->category?->name }}</p>
-        </div>
-        <div>
-            <x-input-label for="type_id" :value="__('Type')" />
-            <p class="mt-1">{{ $product->type?->name }}</p>
+            <p class="mt-1">{{ $product->categories?->name }}</p>
         </div>
         <div>
             <x-input-label for="body_type_id" :value="__('Body Type')" />
-            <p class="mt-1">{{ $product->bodyType?->name }}</p>
+            <p class="mt-1">{{ $product->body_type?->name }}</p>
         </div>
     </div>
 
@@ -57,7 +53,7 @@
         <x-input-label for="image" :value="__('Image')" />
         @if ($product->image)
             <div class="mt-1">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="max-w-full max-h-40" />
+                <img src="{{ asset('assets/images/products/' . $product->image) }}" alt="{{ $product->name }}" class="max-w-full max-h-40" />
             </div>
         @else
             <p class="mt-1">No image available</p>

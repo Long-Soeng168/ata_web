@@ -44,5 +44,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Shop::class, 'shop_id', 'id');
     }
+    
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'create_by_user_id');
+    }
+
+    public function updatedCategories()
+    {
+        return $this->hasMany(Category::class, 'update_by_user_id');
+    }
 
 }

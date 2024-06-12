@@ -23,5 +23,15 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class);
     }
-    
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'create_by_user_id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'update_by_user_id');
+    }
+
 }
