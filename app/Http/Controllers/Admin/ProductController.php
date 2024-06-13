@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Exception;
 use Image;
 
 
