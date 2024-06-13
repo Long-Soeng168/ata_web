@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AppIntro extends Model
 {
     use HasFactory;
-    protected $table = "app_intros";
+
+    protected $fillable = ['name', 'description', 'image'];
 }

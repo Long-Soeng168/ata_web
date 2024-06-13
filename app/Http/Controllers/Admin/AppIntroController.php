@@ -35,7 +35,7 @@ class AppIntroController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -45,8 +45,8 @@ class AppIntroController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = public_path('assets/images/body_types/' . $fileName);
-            $thumbPath = public_path('assets/images/body_types/thumb/' . $fileName);
+            $imagePath = public_path('assets/images/appintros/' . $fileName);
+            $thumbPath = public_path('assets/images/appintros/thumb/' . $fileName);
 
             try {
                 // Create an image instance and save the original image
@@ -98,7 +98,7 @@ class AppIntroController extends Controller
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable',
             'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
