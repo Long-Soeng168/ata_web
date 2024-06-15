@@ -107,7 +107,7 @@
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                {{-- <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <div>
                             <a href="{{ route('admin.products.index', ['sort_by' => 'name', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
@@ -120,7 +120,7 @@
                                 Sort by Date ({{ $sortDirection === 'asc' ? 'Asc' : 'Desc' }})
                             </a>
                         </div>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th scope="col" class="p-4">
                             <div class="flex items-center">
@@ -129,27 +129,25 @@
                                 <label for="checkbox-all" class="sr-only">checkbox</label>
                             </div>
                         </th>
-                        <th scope="col" class="px-4 py-3">Image</th>
-                        <th scope="col" class="px-4 py-3">Name</th>
-                        <th scope="col" class="px-4 py-3">Description</th>
-                        <th scope="col" class="px-4 py-3">Code</th>
-                        <th scope="col" class="px-4 py-3">price</th>
-                        <th scope="col" class="px-4 py-3">discount_percent</th>
-                        <th scope="col" class="px-4 py-3">create_by_user_id</th>
-                        <th scope="col" class="px-4 py-3">shop_id</th>
-                        <th scope="col" class="px-4 py-3">brand_id</th>
-                        <th scope="col" class="px-4 py-3">model_id</th>
-                        <th scope="col" class="px-4 py-3">body_type_id</th>
-                        <th scope="col" class="px-4 py-3">category_id</th>
-                        <th scope="col" class="px-4 py-3">sub_category_id</th>
-                        <th scope="col" class="px-4 py-3">Status</th>
+                        <th scope="col" class="px-4 py-3 uppercase">Image</th>
+                        <th scope="col" class="px-4 py-3 uppercase">Name</th>
+                        {{-- <th scope="col" class="px-4 py-3 uppercase">Description</th> --}}
+                        <th scope="col" class="px-4 py-3 uppercase">Code</th>
+                        <th scope="col" class="px-4 py-3 uppercase">price</th>
+                        {{-- <th scope="col" class="px-4 py-3 uppercase">discount</th> --}}
+                        <th scope="col" class="px-4 py-3 uppercase">create_by</th>
+                        <th scope="col" class="px-4 py-3 uppercase">shop</th>
+                        <th scope="col" class="px-4 py-3 uppercase">brand/model/body_type</th>
+                        <th scope="col" class="px-4 py-3 uppercase">category</th>
+                        {{-- <th scope="col" class="px-4 py-3 uppercase">sub_category_id</th> --}}
+                        {{-- <th scope="col" class="px-4 py-3 uppercase">Status</th> --}}
                         <th scope="col" class="py-3 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($products as $product)
                         <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td class="w-4 px-4 py-3">
+                            <td class="w-4 px-4 py-3 uppercase">
                                 <div class="flex items-center">
                                     <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()"
                                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -162,29 +160,28 @@
                                     alt="{{ $product->name }}" class="object-cover h-10 mr-3 aspect-video">
                             </th>
                             <x-table-data value="{{ $product->name }}" />
-                            <x-table-data value="{{ $product->description }}" />
+                            {{-- <x-table-data value="{{ $product->description }}" /> --}}
                             <x-table-data value="{{ $product->code }}" />
                             <x-table-data>
                                 <div class="flex items-center text-red-600">
                                     {{ $product->price }}
                                 </div>
                             </x-table-data>
-                            <x-table-data value="{{ $product->discount_percent }}" />
-                            <x-table-data value="{{ $product->create_by_user_id }}" />
-                            <x-table-data value="{{ $product->shop_id }}" />
+                            {{-- <x-table-data value="{{ '%' . $product->discount_percent }}" /> --}}
+                            <x-table-data value="{{ $product->user?->name }}" />
+                            <x-table-data value="{{ $product->shop?->name }}" />
                             <x-table-data>
                                 <span
-                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->brand?->name }}</span>
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                    {{ $product->brand?->name }} / {{ $product->brand_model?->name }} / {{ $product->body_type?->name }}
+                                </span>
                             </x-table-data>
-                            <x-table-data value="{{ $product->brand_model?->name }}" />
-                            <x-table-data value="{{ $product->body_type?->name }}" />
-                            {{-- <x-table-data value="{{ $product->category_id }}"/> --}}
                             <x-table-data>
                                 <span
                                     class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->category?->name }}</span>
                             </x-table-data>
-                            <x-table-data value="{{ $product->sub_category_id }}" />
-                            <x-table-data value="{{ $product->status }}" />
+                            {{-- <x-table-data value="{{ $product->sub_category_id }}" /> --}}
+                            {{-- <x-table-data value="{{ $product->status }}" /> --}}
                             {{-- <x-table-data>
                             <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->users?->created_by_user_id }}</span>
                         </x-table-data> --}}

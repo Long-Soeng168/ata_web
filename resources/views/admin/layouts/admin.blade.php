@@ -41,7 +41,7 @@
                     </button>
                     <a href="/" class="flex items-center justify-center mr-4">
                         <img src="{{ asset('assets/images/logo/tomato.png') }}" class="h-8 mr-3" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Potato</span>
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dashboard</span>
                     </a>
 
                 </div>
@@ -324,7 +324,7 @@
         <aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidenav" id="drawer-navigation">
             <a href="/" class="flex items-center justify-center mt-4">
                 <img src="{{ asset('assets/images/logo/tomato.png') }}" class="h-8 mr-3" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Potato</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dashboard</span>
             </a>
             <div class="overflow-y-auto py-5 px-3 pb-[120px] h-full bg-white dark:bg-gray-800">
 
@@ -408,7 +408,7 @@
                     {{-- Start Products --}}
                     <li>
                         <x-sidebar-item href="{{ route('admin.products.index') }}"
-                        class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        class="{{ request()->is('admin/products*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
                             <span class="ml-3">Products</span>

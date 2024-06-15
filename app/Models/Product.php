@@ -31,4 +31,12 @@ class Product extends Model
     {
         return $this->belongsTo(BodyType::class, 'body_type_id', 'id');
     }
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shop_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'create_by_user_id', 'id');
+    }
 }
