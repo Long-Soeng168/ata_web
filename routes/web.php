@@ -39,6 +39,48 @@ Route::get('/symlink', function () {
 |--------------------------------------------------------------------------
 */
 
+use Illuminate\Support\Facades\File;
+
+Route::get('/get_resources/{path?}', function ($path = null) {
+    // dd($path);
+    // Specify the directory path relative to the public folder
+    if($path ){
+        $directory = public_path($path);
+    }else{
+        $directory = public_path();
+    }
+
+    // Check if the directory exists
+    if (File::isDirectory($directory)) {
+        // Get all files in the current directory (excluding subdirectories)
+        $files = File::files($directory);
+
+        // Get all directories (subdirectories) in the directory
+        $directories = File::directories($directory);
+
+        // Initialize arrays to store file names and folder names
+        $fileNames = [];
+        $folderNames = [];
+
+        // Iterate through files and store file names
+        foreach ($files as $file) {
+            $fileNames[] = $file->getFilename();
+        }
+
+        // Iterate through directories and store folder names
+        foreach ($directories as $dir) {
+            $folderNames[] = basename($dir); // Get the base name of the directory
+        }
+
+        // Return the list of filenames and folder names as JSON response
+        // return response()->json(['files' => $fileNames, 'folders' => $folderNames]);
+        return view('view-files',['files' => $fileNames, 'folders' => $folderNames]);
+    } else {
+        // Handle case where directory does not exist
+        abort(404, 'Directory not found');
+    }
+})->where('path', '.*');
+
 Route::group([
     'middleware' => 'auth',
     'prefix' => 'admin',
@@ -136,7 +178,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('admin/dashboard');
 });
 
 Route::get('/dashboard', function () {
