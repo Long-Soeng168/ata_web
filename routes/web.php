@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DtcController;
+use App\Http\Controllers\Admin\GarageController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\ProductController;
@@ -106,6 +107,7 @@ Route::group([
     Route::resource('shops', ShopController::class);
     Route::resource('products', ProductController::class);
     Route::resource('appintros', AppIntroController::class );
+    Route::resource('garages', GarageController::class);
 
 
     Route::get('addmore', function(){
