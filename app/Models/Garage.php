@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Garage extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name', 'location', 'user_id', 'like', 'unlike', 'rate', 'comment', 'logo', 'banner', 'bio'
     ];
@@ -16,5 +16,10 @@ class Garage extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class);
     }
 }

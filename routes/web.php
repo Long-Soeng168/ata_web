@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\GarageController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,7 @@ Route::group([
     Route::resource('products', ProductController::class);
     Route::resource('appintros', AppIntroController::class );
     Route::resource('garages', GarageController::class);
+    Route::resource('promotions', PromotionController::class);
 
 
     Route::get('addmore', function(){
