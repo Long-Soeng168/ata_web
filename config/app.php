@@ -172,6 +172,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        App\Providers\FFMpegServiceProvider::class,
     ])->toArray(),
 
     /*

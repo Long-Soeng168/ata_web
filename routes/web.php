@@ -19,19 +19,22 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DtcController;
+use App\Http\Controllers\Admin\GarageController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\VideoController;
 
 /*
 |--------------------------------------------------------------------------
 */
 // Make storage:link
 Route::get('/symlink', function () {
-   $target =$_SERVER['DOCUMENT_ROOT'].'/storage/app/public';
-   $link = $_SERVER['DOCUMENT_ROOT'].'/public/storage';
-   symlink($target, $link);
-   echo "Done";
+    $target = $_SERVER['DOCUMENT_ROOT'] . '/storage/app/public';
+    $link = $_SERVER['DOCUMENT_ROOT'] . '/public/storage';
+    symlink($target, $link);
+    echo "Done";
 });
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +47,9 @@ use Illuminate\Support\Facades\File;
 Route::get('/get_resources/{path?}', function ($path = null) {
     // dd($path);
     // Specify the directory path relative to the public folder
-    if($path ){
+    if ($path) {
         $directory = public_path($path);
-    }else{
+    } else {
         $directory = public_path();
     }
 
@@ -74,7 +77,7 @@ Route::get('/get_resources/{path?}', function ($path = null) {
 
         // Return the list of filenames and folder names as JSON response
         // return response()->json(['files' => $fileNames, 'folders' => $folderNames]);
-        return view('view-files',['files' => $fileNames, 'folders' => $folderNames]);
+        return view('view-files', ['files' => $fileNames, 'folders' => $folderNames]);
     } else {
         // Handle case where directory does not exist
         abort(404, 'Directory not found');
@@ -85,30 +88,34 @@ Route::group([
     'middleware' => 'auth',
     'prefix' => 'admin',
     'as' => 'admin.'
-], function() {
+], function () {
 
-    Route::resource('dashboard', DashboardController::class );
-    Route::resource('users', AdminUserController::class );
-    Route::resource('customers', CustomerController::class );
-    Route::resource('items', ItemController::class );
-    Route::resource('allitems', AllItemController::class );
-    Route::resource('categories', CategoryController::class );
-    Route::resource('bodytypes', BodyTypeController::class );
-    Route::resource('brands', BrandController::class );
-    Route::resource('models', ModelController::class );
-    Route::resource('types', TypeController::class );
+    Route::resource('dashboard', DashboardController::class);
+    Route::resource('users', AdminUserController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('items', ItemController::class);
+    Route::resource('allitems', AllItemController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('bodytypes', BodyTypeController::class);
+    Route::resource('brands', BrandController::class);
+    Route::resource('models', ModelController::class);
+    Route::resource('types', TypeController::class);
 
-    Route::resource('settings', SettingsController::class );
+    Route::resource('settings', SettingsController::class);
 
 
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
     Route::resource('shops', ShopController::class);
     Route::resource('products', ProductController::class);
-    Route::resource('appintros', AppIntroController::class );
+    Route::resource('appintros', AppIntroController::class);
+    Route::resource('garages', GarageController::class);
+    Route::resource('promotions', PromotionController::class);
+    Route::resource('videos', VideoController::class);
+    Route::get('videos/stream/{video}/{quality}', [VideoController::class, 'stream'])->name('videos.stream');
 
 
-    Route::get('addmore', function(){
+    Route::get('addmore', function () {
         dd('Add More Route Test Success');
     })->name('addmore');
 });
@@ -137,7 +144,7 @@ Route::group([
 
 Route::group([
     'middleware' => 'role:super-admin|admin'
-], function() {
+], function () {
     Route::resource('permissions', PermissionController::class);
     Route::get('permissions/{id}/delete', [PermissionController::class, 'destroy']);
 
@@ -151,15 +158,15 @@ Route::group([
     Route::get('users/{user}/delete', [UserController::class, 'destroy']);
 });
 
-Route::get('ckeditor4-demo', function() {
+Route::get('ckeditor4-demo', function () {
     return view('ckeditor-demo.ckeditor4-demo');
 })->name('ckeditor4');
 
-Route::get('ckeditor5-demo', function() {
+Route::get('ckeditor5-demo', function () {
     return view('ckeditor-demo.ckeditor5-demo');
 })->name('ckeditor5');
 
-Route::get('slide-infinite-loop', function() {
+Route::get('slide-infinite-loop', function () {
     return view('slide-show.slide-infinite-loop');
 })->name('slide-infinite-loop');
 
