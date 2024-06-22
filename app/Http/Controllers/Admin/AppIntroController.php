@@ -12,9 +12,14 @@ class AppIntroController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $appintros = AppIntro::paginate(10);
+        $search = $request->search;
+        if($search){
+            $appintros = AppIntro::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $appintros = AppIntro::paginate(10);
+        }
         return view('admin.appintros.index', [
             'appintros' => $appintros,
         ]);
