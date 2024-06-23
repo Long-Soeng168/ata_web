@@ -23,14 +23,19 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        $search = $request->search;
+
         // Get the sorting parameters from the request, with defaults
         $sortColumn = $request->get('sort_by', 'id');
         $sortDirection = $request->get('sort_direction', 'desc'); // Default sort direction 'desc'
-
+        if ($search) {
+            $products = Product::where('name', 'LIKE', "%$search%")->paginate(10);
+        } else {
+            $products = Product::with('brand', 'brand_model', 'category', 'body_type')
+                ->orderBy($sortColumn, $sortDirection)
+                ->paginate(10);
+        }
         // Retrieve products with sorting and relationships
-        $products = Product::with('brand', 'brand_model', 'category', 'body_type')
-            ->orderBy($sortColumn, $sortDirection)
-            ->paginate(10);
 
         return view('admin.products.index', [
             'products' => $products,
@@ -153,7 +158,7 @@ class ProductController extends Controller
         $body_types = BodyType::all();
         $shops = Shop::all();
 
-        return view('admin.products.edit', compact('product', 'brands', 'models', 'categories', 'types', 'body_types','shops'));
+        return view('admin.products.edit', compact('product', 'brands', 'models', 'categories', 'types', 'body_types', 'shops'));
     }
 
     /**

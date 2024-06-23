@@ -15,9 +15,14 @@ class GarageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $garages = Garage::all();
+        $search = $request->search;
+        if($search){
+            $garages = Garage::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $garages = Garage::paginate(10);
+        }
         return view('admin.garages.index', compact('garages'));
     }
 

@@ -14,7 +14,12 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::paginate(10);
+        $search = $request->search;
+        if($search){
+            $categories = Category::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $categories = Category::paginate(10);
+        }
         return view('admin.categories.index', [
             'categories' => $categories,
         ]);

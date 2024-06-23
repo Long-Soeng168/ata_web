@@ -13,7 +13,12 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        $types = Type::paginate(10);
+        $search = $request->search;
+        if($search){
+            $types = Type::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $types = Type::paginate(10);
+        }
         // dd($types, $shopId);
         return view('admin.types.index', [
             'types' => $types,
@@ -165,5 +170,5 @@ class TypeController extends Controller
 
         return redirect()->back()->with('status', 'Types deleted successfully');
     }
-    
+
 }

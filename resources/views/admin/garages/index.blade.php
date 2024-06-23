@@ -20,9 +20,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="simple-search"
+                        <input value="{{ request()->get('search') }}" name="search" type="text" id="simple-search"
                             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search..." >
+                            placeholder="Search...">
                     </div>
 
                 </form>
@@ -114,7 +114,7 @@
             </table>
 
             <div class="p-4">
-                {{-- {{ $garages->links() }} --}}
+                {{ $garages->links() }}
                 {{-- {{ $garages->appends(['sort_by' => $sortColumn, 'sort_direction' => $sortDirection])->links() }} --}}
             </div>
         </div>

@@ -11,9 +11,14 @@ use Image;
 
 class PromotionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $promotions = Promotion::all();
+        $search = $request->search;
+        if($search){
+            $promotions = Promotion::where('title', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $promotions = Promotion::paginate(10);
+        }
         return view('admin.promotions.index', compact('promotions'));
     }
 

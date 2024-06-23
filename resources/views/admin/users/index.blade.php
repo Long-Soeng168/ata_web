@@ -15,9 +15,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="simple-search"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search..." >
+                        <input value="{{ request()->get('search') }}" name="search" type="text" id="simple-search"
+                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Search...">
                     </div>
 
                 </form>
@@ -58,8 +58,8 @@
                             </td>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
-                                    alt="iMac Front Image" class="w-auto h-10 mr-3">
+                                <img src="{{ asset('assets/images/users/thumb/' . $user->image) }}"
+                                    alt="{{ $user->name }}" class="w-auto h-10 mr-3">
                             </th>
                             <x-table-data value="{{ $user->name }}" />
                             <x-table-data value="{{ $user->email }}" />

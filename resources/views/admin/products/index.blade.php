@@ -15,9 +15,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="simple-search"
+                        <input value="{{ request()->get('search') }}" name="search" type="text" id="simple-search"
                             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search... " >
+                            placeholder="Search...">
                     </div>
                 </form>
             </div>
@@ -52,29 +52,29 @@
                             </a>
                         </div>
                     </tr> --}}
-                    <tr>
-                        <th scope="col" class="px-4 py-3">No</th>
-                        <th scope="col" class="px-4 py-3 uppercase">Image</th>
-                        <th scope="col" class="px-4 py-3 uppercase">Name</th>
-                        {{-- <th scope="col" class="px-4 py-3 uppercase">Description</th> --}}
-                        <th scope="col" class="px-4 py-3 uppercase">Code</th>
-                        <th scope="col" class="px-4 py-3 uppercase">price</th>
-                        {{-- <th scope="col" class="px-4 py-3 uppercase">discount</th> --}}
-                        <th scope="col" class="px-4 py-3 uppercase">create_by</th>
-                        <th scope="col" class="px-4 py-3 uppercase">shop</th>
-                        <th scope="col" class="px-4 py-3 uppercase">brand/model/body_type</th>
-                        <th scope="col" class="px-4 py-3 uppercase">category</th>
-                        {{-- <th scope="col" class="px-4 py-3 uppercase">sub_category_id</th> --}}
-                        {{-- <th scope="col" class="px-4 py-3 uppercase">Status</th> --}}
-                        <th scope="col" class="py-3 text-center">Action</th>
-                    </tr>
+                <tr>
+                    <th scope="col" class="px-4 py-3">No</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Image</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Name</th>
+                    {{-- <th scope="col" class="px-4 py-3 uppercase">Description</th> --}}
+                    <th scope="col" class="px-4 py-3 uppercase">Code</th>
+                    <th scope="col" class="px-4 py-3 uppercase">price</th>
+                    {{-- <th scope="col" class="px-4 py-3 uppercase">discount</th> --}}
+                    <th scope="col" class="px-4 py-3 uppercase">create_by</th>
+                    <th scope="col" class="px-4 py-3 uppercase">shop</th>
+                    <th scope="col" class="px-4 py-3 uppercase">brand/model/body_type</th>
+                    <th scope="col" class="px-4 py-3 uppercase">category</th>
+                    {{-- <th scope="col" class="px-4 py-3 uppercase">sub_category_id</th> --}}
+                    {{-- <th scope="col" class="px-4 py-3 uppercase">Status</th> --}}
+                    <th scope="col" class="py-3 text-center">Action</th>
+                </tr>
                 </thead>
                 <tbody>
                     @forelse ($products as $product)
                         <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td class="w-4 px-4 py-3">
-                            {{ $loop->iteration }}
-                        </td>
+                                {{ $loop->iteration }}
+                            </td>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                                 <img src="{{ asset('assets/images/products/thumb/' . $product->image) }}"
@@ -94,7 +94,8 @@
                             <x-table-data>
                                 <span
                                     class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                                    {{ $product->brand?->name }} / {{ $product->brand_model?->name }} / {{ $product->body_type?->name }}
+                                    {{ $product->brand?->name }} / {{ $product->brand_model?->name }} /
+                                    {{ $product->body_type?->name }}
                                 </span>
                             </x-table-data>
                             <x-table-data>

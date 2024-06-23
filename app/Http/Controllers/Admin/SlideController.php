@@ -9,9 +9,14 @@ use Image;
 
 class SlideController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $slides = Slide::paginate(10);
+        $search = $request->search;
+        if($search){
+            $slides = Slide::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $slides = Slide::paginate(10);
+        }
         return view('admin.slides.index', compact('slides'));
     }
 

@@ -15,7 +15,12 @@ class ModelController extends Controller
      */
     public function index(Request $request)
     {
-        $models = BrandModel::paginate(10);
+        $search = $request->search;
+        if($search){
+            $models = BrandModel::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $models = BrandModel::paginate(10);
+        }
         // dd($models, $shopId);
         return view('admin.models.index', [
             'models' => $models,

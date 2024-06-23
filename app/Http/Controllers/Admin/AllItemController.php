@@ -16,10 +16,15 @@ class AllItemController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Item::with('category')
+        $search = $request->search;
+        if($search){
+            $items = Item::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $items = Item::with('category')
                     ->with('type')
                     ->with('shop')
                     ->paginate(10);
+        }
         return view('admin.allitems.index', [
             "items" => $items,
         ]);
