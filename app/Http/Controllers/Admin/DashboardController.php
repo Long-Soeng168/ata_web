@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use App\Models\BodyType;
+use App\Models\Brand;
+use App\Models\BrandModel;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,7 +15,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        
+        $modelCount = BrandModel::count();
+        $brandCount = Brand::count();
+        $bodyTypeCount = BodyType::count();
+        $categoryCount = Category::count();
+        return view('admin.dashboard.index', compact('categoryCount', 'bodyTypeCount', 'brandCount', 'modelCount'));
     }
 
     /**
