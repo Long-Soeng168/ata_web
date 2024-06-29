@@ -23,20 +23,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        // Get the sorting parameters from the request, with defaults
-        $sortColumn = $request->get('sort_by', 'id');
-        $sortDirection = $request->get('sort_direction', 'desc'); // Default sort direction 'desc'
-
-        // Retrieve products with sorting and relationships
-        $products = Product::with('brand', 'brand_model', 'category', 'body_type')
-            ->orderBy($sortColumn, $sortDirection)
-            ->paginate(10);
-
-        return view('admin.products.index', [
-            'products' => $products,
-            'sortColumn' => $sortColumn,
-            'sortDirection' => $sortDirection,
-        ]);
+        return view('admin.products.index');
     }
 
 
@@ -45,19 +32,9 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        $categories = Category::get();
-        $brands = Brand::get();
-        $models = BrandModel::get();
-        $body_types = BodyType::get();
-        $shops = Shop::all();
 
-        return view('admin.products.create', [
-            'categories' => $categories,
-            'brands' => $brands,
-            'models' => $models,
-            'body_types' => $body_types,
-            'shops' => $shops,
-        ]);
+
+        return view('admin.products.create');
     }
 
 
@@ -136,6 +113,8 @@ class ProductController extends Controller
         $categories = Category::all();
         $types = Type::all();
         $body_types = BodyType::all();
+
+        // return $product;
 
         return view('admin.products.show', compact('product', 'brands', 'models', 'categories', 'types', 'body_types'));
     }

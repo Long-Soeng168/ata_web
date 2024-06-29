@@ -18,6 +18,7 @@
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
     <script defer src="{{ asset('assets/js/darkMode.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -618,11 +619,74 @@
             filebrowserBrowseUrl: '{{ asset("laravel-filemanager?type=Files")}}',
             filebrowserUploadUrl: '{{ asset("laravel-filemanager/upload?type=Files&_token=")}}'
         };
-        var areas = Array('details', 'description', 'description_kh','description_en');
-        areas.forEach(function(area) {
-            CKEDITOR.replace(area, options);
-        });
+        // var areas = Array('details', 'description', 'description_kh','description_en');
+        // areas.forEach(function(area) {
+        //     CKEDITOR.replace(area, options);
+        // });
     </script>
+    <script src="{{ asset('assets/js/glightbox.js') }}"></script>
+    <script>
+        var lightbox = GLightbox();
+        lightbox.on('open', (target) => {
+            console.log('lightbox opened');
+        });
+        var lightboxDescription = GLightbox({
+            selector: '.glightbox2'
+        });
+        var lightboxVideo = GLightbox({
+            selector: '.glightbox3'
+        });
+        lightboxVideo.on('slide_changed', ({ prev, current }) => {
+            console.log('Prev slide', prev);
+            console.log('Current slide', current);
+
+            const { slideIndex, slideNode, slideConfig, player } = current;
+
+            if (player) {
+                if (!player.ready) {
+                    // If player is not ready
+                    player.on('ready', (event) => {
+                        // Do something when video is ready
+                    });
+                }
+
+                player.on('play', (event) => {
+                    console.log('Started play');
+                });
+
+                player.on('volumechange', (event) => {
+                    console.log('Volume change');
+                });
+
+                player.on('ended', (event) => {
+                    console.log('Video ended');
+                });
+            }
+        });
+
+        var lightboxInlineIframe = GLightbox({
+            selector: '.glightbox4'
+        });
+
+        /* var exampleApi = GLightbox({ selector: null });
+        exampleApi.insertSlide({
+            href: 'https://picsum.photos/1200/800',
+        });
+        exampleApi.insertSlide({
+            width: '500px',
+            content: '<p>Example</p>'
+        });
+        exampleApi.insertSlide({
+            href: 'https://www.youtube.com/watch?v=WzqrwPhXmew',
+        });
+        exampleApi.insertSlide({
+            width: '200vw',
+            content: document.getElementById('inline-example')
+        });
+        exampleApi.open(); */
+    </script>
+
+
 
 </body>
 
