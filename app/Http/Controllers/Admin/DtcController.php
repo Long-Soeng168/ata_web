@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class DtcController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $dtcs = Dtc::paginate(10);
+        $search = $request->search;
+        if($search){
+            $dtcs = Dtc::where('dtc_code', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $dtcs = Dtc::paginate(10);
+        }
         return view('admin.dtcs.index', compact('dtcs'));
     }
 

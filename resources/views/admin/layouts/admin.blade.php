@@ -18,7 +18,10 @@
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
     <script defer src="{{ asset('assets/js/darkMode.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
+
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 

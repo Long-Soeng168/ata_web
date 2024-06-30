@@ -11,9 +11,14 @@ use FFMpeg\Coordinate\Dimension;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $videos = Video::all();
+        $search = $request->search;
+        if($search){
+            $videos = Video::where('title', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $videos = Video::paginate(10);
+        }
         return view('admin.videos.index', compact('videos'));
     }
 

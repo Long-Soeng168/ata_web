@@ -14,7 +14,13 @@ class BodyTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $bodytypes = BodyType::paginate(10);
+        $search = $request->search;
+        if($search){
+            $bodytypes =BodyType::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $bodytypes =BodyType::paginate(10);
+        }
+        
         // dd($bodytypes, $shopId);
         return view('admin.bodytypes.index', [
             'bodytypes' => $bodytypes,

@@ -14,7 +14,12 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-        $brands = Brand::paginate(10);
+        $search = $request->search;
+        if($search){
+            $brands = Brand::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $brands = Brand::paginate(10);
+        }
         // dd($brands, $shopId);
         return view('admin.brands.index', [
             'brands' => $brands,
