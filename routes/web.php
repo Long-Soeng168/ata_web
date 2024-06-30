@@ -107,7 +107,14 @@ Route::group([
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
     Route::resource('shops', ShopController::class);
+
     Route::resource('products', ProductController::class);
+    Route::get('products_images/{id}', function($id){
+        return view('admin.products.image', [
+            'id' => $id,
+        ]);
+    });
+
     Route::resource('appintros', AppIntroController::class);
     Route::resource('garages', GarageController::class);
     Route::resource('promotions', PromotionController::class);

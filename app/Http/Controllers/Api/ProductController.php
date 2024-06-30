@@ -91,4 +91,8 @@ class ProductController extends Controller
     {
         //
     }
+    public function images(string $id)
+    {
+
+    }
 }
