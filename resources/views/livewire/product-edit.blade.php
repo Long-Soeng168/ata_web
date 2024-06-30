@@ -120,13 +120,12 @@
                                 <span>Uploading...</span>
                             </div>
                         </div>
-
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
                     <div class="flex flex-wrap max-w-full gap-2 mt-4">
                         @if ($image)
-                                <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
-                                    class="max-w-full pr-4 mb-2 max-h-40" />
+                            <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
+                                class="max-w-full pr-4 mb-2 max-h-40" />
                         @endif
                     </div>
                 </div>

@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Image;
 use Exception;
 
-class ProductCreate extends Component
+class ProductEdit extends Component
 {
     use WithFileUploads;
 
     public $image = null;
 
+    public $productId;
     public $name;
     public $price;
     public $code;
@@ -32,7 +33,7 @@ class ProductCreate extends Component
     public $shop_id;
 
     protected $rules = [
-        'image' => 'required|image|max:2048', // 2048 KB = 2 MB
+        'image' => 'nullable|image|max:2048', // 2048 KB = 2 MB
         'name' => 'required|string|max:255',
         'price' => 'required|numeric|min:0',
         'code' => 'required|string|max:255|unique:products,code',
@@ -45,23 +46,54 @@ class ProductCreate extends Component
         'shop_id' => 'required|exists:shops,id',
     ];
 
+    public function mount($id = null)
+    {
+        $this->productId = $id;
+        if ($this->productId) {
+            $this->loadProduct();
+        }
+    }
+
+    public function loadProduct()
+    {
+        $product = Product::findOrFail($this->productId);
+        $this->name = $product->name;
+        $this->price = $product->price;
+        $this->code = $product->code;
+        $this->discount_percent = $product->discount_percent;
+        $this->description = $product->description;
+        $this->brand_id = $product->brand_id;
+        $this->model_id = $product->model_id;
+        $this->category_id = $product->category_id;
+        $this->body_type_id = $product->body_type_id;
+        $this->shop_id = $product->shop_id;
+    }
+
     public function save()
     {
-        $validatedData = $this->validate();
+        $validatedData = $this->validate([
+            'image' => 'nullable|image|max:2048', // 2048 KB = 2 MB
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'code' => 'required|string|max:255|unique:products,code,' . $this->productId,
+            'discount_percent' => 'nullable|numeric|min:0|max:100',
+            'description' => 'nullable|string',
+            'brand_id' => 'required|exists:brands,id',
+            'model_id' => 'required|exists:models,id',
+            'category_id' => 'required|exists:categories,id',
+            'body_type_id' => 'required|exists:body_types,id',
+            'shop_id' => 'required|exists:shops,id',
+        ]);
 
         $validatedData['create_by_user_id'] = Auth::id();
 
-        $imageFiles = [];
         if ($this->image) {
             try {
                 $fileName = time() . '_' . $this->image->getClientOriginalName();
                 $imagePath = public_path('assets/images/products/' . $fileName);
                 $thumbPath = public_path('assets/images/products/thumb/' . $fileName);
 
-                // Create an image instance and save the original image
                 $uploadedImage = Image::make($this->image->getRealPath())->save($imagePath);
-
-                // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
                 $uploadedImage->resize(500, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($thumbPath);
@@ -73,11 +105,15 @@ class ProductCreate extends Component
             }
         }
 
+        if ($this->productId) {
+            $product = Product::findOrFail($this->productId);
+            $product->update($validatedData);
+            session()->flash('message', 'Product successfully updated.');
+        } else {
+            Product::create($validatedData);
+            session()->flash('message', 'Product successfully created.');
+        }
 
-
-        Product::create($validatedData);
-
-        session()->flash('message', 'Product successfully created.');
         return redirect()->route('admin.products.index');
     }
 
@@ -89,7 +125,7 @@ class ProductCreate extends Component
         $body_types = BodyType::all();
         $shops = Shop::all();
 
-        return view('livewire.product-create', [
+        return view('livewire.product-edit', [
             'categories' => $categories,
             'brands' => $brands,
             'models' => $models,

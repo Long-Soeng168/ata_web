@@ -8,6 +8,7 @@ use App\Models\Shop;
 use App\Models\BrandModel;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -113,26 +114,20 @@ class ProductController extends Controller
         $categories = Category::all();
         $types = Type::all();
         $body_types = BodyType::all();
+        $multi_images = ProductImage::where('product_id', $product->id)->get();
 
         // return $product;
 
-        return view('admin.products.show', compact('product', 'brands', 'models', 'categories', 'types', 'body_types'));
+        return view('admin.products.show', compact('product', 'brands', 'models', 'categories', 'types', 'body_types', 'multi_images'));
     }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        $brands = Brand::all();
-        $models = BrandModel::all();
-        $categories = Category::all();
-        $types = Type::all();
-        $body_types = BodyType::all();
-        $shops = Shop::all();
-
-        return view('admin.products.edit', compact('product', 'brands', 'models', 'categories', 'types', 'body_types','shops'));
+        return view('admin.products.edit', compact('id'));
     }
 
     /**

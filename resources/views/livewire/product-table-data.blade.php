@@ -179,14 +179,14 @@
             </thead>
             <tbody>
                 @forelse ($products as $product)
-                    <tr wire:key='{{ $product->key }}' class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <tr wire:key='{{ $product->id }}' class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <td class="w-4 px-4 py-3">
                             {{ $loop->iteration }}
                         </td>
                         <th scope="row"
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                             <img src="{{ asset('assets/images/products/thumb/' . $product->image) }}"
-                                alt="{{ $product->name }}" class="object-cover h-10 mr-3 aspect-video">
+                                alt="product-image" class="object-cover h-10 mr-3 aspect-video">
                         </th>
                         <x-table-data value="{{ $product->name }}" />
                         {{-- <x-table-data value="{{ $product->description }}" /> --}}
@@ -207,7 +207,7 @@
                         </x-table-data>
                         <x-table-data>
                             <span
-                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $product->category?->name }}</span>
+                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">{{ $product->category?->name }}</span>
                         </x-table-data>
                         {{-- <x-table-data value="{{ $product->sub_category_id }}" /> --}}
                         {{-- <x-table-data value="{{ $product->status }}" /> --}}
@@ -221,7 +221,7 @@
                             <div class="flex items-start justify-center gap-3">
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
-                                        <a href="{{ route('admin.addmore') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                        <a href="{{ url('admin/products_images/'.$product->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle">
                                                 <circle cx="12" cy="12" r="10" />
                                                 <path d="M8 12h8" />
@@ -279,7 +279,7 @@
                                         <div x-show="tooltip"
                                             class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
                                             style="display: none;">
-                                            Delete {{ $product->id }}
+                                            Delete
                                         </div>
                                     </div>
 
