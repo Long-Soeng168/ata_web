@@ -9,23 +9,23 @@
             <!-- Name Address -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div>
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-text-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
         </div>
-        <div class="grid md:grid-cols-2 md:gap-6 pt-4">
+        <div class="grid pt-4 md:grid-cols-2 md:gap-6">
             {{-- Password --}}
             <div>
                 <x-input-label for="password" :value="__('Password')" />
 
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-text-input id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -34,16 +34,16 @@
             <div>
                 <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-text-input id="password_confirmation" class="block w-full mt-1" type="password" name="password_confirmation" required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
         </div>
 
-        <div class="grid md:grid-cols-3 md:gap-6 mt-4">
+        <div class="grid mt-4 md:grid-cols-3 md:gap-6">
             <div>
                 <x-input-label for="phone" :value="__('Phone')" />
-                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"  autofocus placeholder="Phone Number" />
+                <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone" :value="old('phone')"  autofocus placeholder="Phone Number" />
                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
             <div class="relative z-0 w-full mb-5 group">
@@ -55,7 +55,7 @@
             </div>
             <div>
                 <x-input-label for="date_of_birth" :value="__('Date Of Birth')" />
-                <x-text-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" autofocus />
+                <x-text-input id="date_of_birth" class="block w-full mt-1" type="date" name="date_of_birth" :value="old('date_of_birth')" autofocus />
                 <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
             </div>
         </div>
@@ -63,11 +63,12 @@
         <div class="mb-6">
             <div class="flex items-center space-4">
                 <div class="max-w-40">
-                    <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                    <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full pr-4 max-h-40" />
                 </div>
                 <div class="flex-1">
                     <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
+                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
             </div>
         </div>

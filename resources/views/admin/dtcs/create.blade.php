@@ -17,21 +17,21 @@
             @csrf
 
 
-            <div class="grid md:grid-cols-1 md:gap-6 mt-4">
+            <div class="grid mt-4 md:grid-cols-1 md:gap-6">
                 <div>
                     <x-input-label for="dtc_code" :value="__('DTC Code')" />
-                    <x-text-input id="dtc_code" class="block mt-1 w-full" type="text" name="dtc_code" :value="old('dtc_code')"
+                    <x-text-input id="dtc_code" class="block w-full mt-1" type="text" name="dtc_code" :value="old('dtc_code')"
                         placeholder="dtc_code" />
                     <x-input-error :messages="$errors->get('dtc_code')" class="mt-2" />
                 </div>
 
-                <div class="mb-5">
+                <div>
                     <x-input-label for="description_en" :value="__('description_en')" />
-                    <textarea id="description_en" name="description_en"></textarea>
+                    <textarea id="description_en" name="description_en" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border"></textarea>
                 </div>
-                <div class="mb-5">
+                <div>
                     <x-input-label for="description_kh" :value="__('Description KH')" />
-                    <textarea id="description_kh" name="description_kh"></textarea>
+                    <textarea id="description_kh" name="description_kh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border"></textarea>
                 </div>
 
 

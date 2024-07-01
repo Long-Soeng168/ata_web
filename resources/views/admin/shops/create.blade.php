@@ -25,16 +25,10 @@
                 </div>
             </div>
 
-            <div class="grid mt-4 md:grid-cols-3 md:gap-6">
-                <!-- Code and Price -->
-                <div>
-                    <x-input-label for="adress" :value="__('Address')" /><span class="text-red-500">*</span>
-                    <x-text-input id="address" class="block w-full mt-1" type="text" name="address" :value="old('address')"
-                        placeholder="address" />
-                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                </div>
+            <div class="grid mt-4 md:grid-cols-2 md:gap-6">
+
                 <div class="relative z-0 w-full group">
-                    <x-input-label for="user_id" :value="__('Users')" />
+                    <x-input-label for="user_id" :value="__('Shop owner')" />
                     <x-select-option id="user_id" name="owner_user_id">
                         <option value="">Select User...</option>
                         @forelse ($users as $user)
@@ -51,7 +45,13 @@
                         placeholder="phone" />
                     <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                 </div>
-                <div>
+                <div class="col-span-2">
+                    <x-input-label for="adress" :value="__('Address')" /><span class="text-red-500">*</span>
+                    <x-text-input id="address" class="block w-full mt-1" type="text" name="address" :value="old('address')"
+                        placeholder="address" />
+                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                </div>
+                {{-- <div>
                     <x-input-label for="unlike" :value="__('Vat Percent')" />
                     <x-text-input id="vat_percent" class="block w-full mt-1" type="number" name="vat_percent" :value="old('vat_percent')"
                         placeholder="vat_percent" />
@@ -62,13 +62,10 @@
                     <x-text-input id="exchange_rate_riel" class="block w-full mt-1" type="number" name="exchange_rate_riel" :value="old('exchange_rate_riel')"
                         placeholder="exchange_rate_riel" />
                     <x-input-error :messages="$errors->get('exchange_rate_riel')" class="mt-2" />
-                </div>
+                </div> --}}
             </div>
 
-            <div class="grid mt-4 md:grid-cols-2 md:gap-6">
-                <!-- Category, Brand, Model, and Type -->
-
-
+            <div class="grid md:grid-cols-1 md:gap-6">
                 <!-- Image Upload -->
                 <div class="mt-5 mb-5">
                     <div class="flex items-center space-4">
@@ -103,14 +100,16 @@
             </div>
                 <!-- Description -->
             <div class="mb-5">
-                <x-input-label for="description" :value="__('Description EN')" />
-                <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description') }}</textarea>
+                <x-input-label for="description" :value="__('Description')" />
+                <textarea id="description" name="description"
+                    class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border" rows="4"
+                >{{ old('description') }} </textarea>
             </div>
             <!-- Description KH -->
-            <div class="mb-5">
+            {{-- <div class="mb-5">
                 <x-input-label for="description_kh" :value="__('Description KH')" />
                 <textarea id="description_kh" name="description_kh" class="block w-full mt-1" rows="4">{{ old('description_kh') }}</textarea>
-            </div>
+            </div> --}}
 
                 <div>
                     <x-outline-button href="{{ URL::previous() }}">

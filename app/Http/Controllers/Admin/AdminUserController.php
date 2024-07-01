@@ -53,10 +53,10 @@ class AdminUserController extends Controller
         // Validation rules
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|lowercase|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|confirmed',
             'roles' => 'required',
-            'image' => 'required|image|max:2048',
+            'image' => 'nullable|image|max:2048',
         ]);
 
         // Validation passed, proceed with storing data
@@ -107,20 +107,20 @@ class AdminUserController extends Controller
         }
 
         // Create shop if the authenticated user doesn't have one
-        if ($authUser->shop_id === null) {
-            $createdShop = Shop::create([
-                'name' => $request->name . ' Shop',
-                'owner_user_id' => $user->id,
-                'description' => 'Your shop description',
-            ]);
+        // if ($authUser->shop_id === null) {
+        //     $createdShop = Shop::create([
+        //         'name' => $request->name . ' Shop',
+        //         'owner_user_id' => $user->id,
+        //         'description' => 'Your shop description',
+        //     ]);
 
-            if ($createdShop) {
-                // Update the user's shop_id
-                $user->update(['shop_id' => $createdShop->id]);
-            }
-        } else {
-            $user->update(['shop_id' => $authUser->shop_id]);
-        }
+        //     if ($createdShop) {
+        //         // Update the user's shop_id
+        //         $user->update(['shop_id' => $createdShop->id]);
+        //     }
+        // } else {
+        //     $user->update(['shop_id' => $authUser->shop_id]);
+        // }
 
         return redirect('/admin/users')->with('status', 'User created successfully');
     }

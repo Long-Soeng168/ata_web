@@ -26,7 +26,7 @@ class ShopController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $users = User::where('shop_id', null)->get();
         return view('admin.shops.create', compact('users'));
     }
 
@@ -55,9 +55,10 @@ class ShopController extends Controller
             'owner_user_id' => 'required|integer|exists:users,id',
             'phone' => 'required',
             'address' => 'required|string|max:255',
-            'vat_percent' => 'required|numeric',
-            'exchange_rate_riel' => 'required|numeric',
+            // 'vat_percent' => 'required|numeric',
+            // 'exchange_rate_riel' => 'required|numeric',
         ]);
+
 
         // If validation fails
         if ($validator->fails()) {
@@ -93,7 +94,10 @@ class ShopController extends Controller
             }
         }
 
-        Shop::create($data);
+        $createdShop = Shop::create($data);
+        User::findOrFail($request->owner_user_id)->update([
+            'shop_id' => $createdShop->id,
+        ]);
 
         return redirect()->route('admin.shops.index')->with('success', 'Shop created successfully.');
     }
