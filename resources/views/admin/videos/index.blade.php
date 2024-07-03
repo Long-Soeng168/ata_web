@@ -50,6 +50,7 @@
                     <th scope="col" class="px-4 py-3 uppercase">No</th>
                     <th scope="col" class="px-4 py-3 uppercase">Title</th>
                     <th scope="col" class="px-4 py-3 uppercase">Descriptions</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Category</th>
                     <th scope="col" class="px-4 py-3 uppercase">Status</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -63,6 +64,7 @@
                             <x-table-data value="{{ $video->title }}" />
 
                             <x-table-data value="{{ $video->description}}" />
+                            <x-table-data value="{{ $video->videocategory?->name}}" />
                             <x-table-data value="{{ $video->status }}" />
 
 

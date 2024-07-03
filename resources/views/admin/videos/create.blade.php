@@ -36,7 +36,18 @@
                     <x-input-error :messages="$errors->get('status')" class="mt-2" />
                 </div>
             </div>
-
+            <div class="relative z-0 w-full group">
+                    <x-input-label for="user_id" :value="__('Video Category')" />
+                    <x-select-option id="user_id" name="category_id">
+                        <option value="">Select Video Category...</option>
+                        @forelse ($category as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @empty
+                            <option value=""> --No Video Category--</option>
+                        @endforelse
+                    </x-select-option>
+                    <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                </div>
             <div class="grid mt-4 md:grid-cols-2 md:gap-6">
                 <div class="mt-5 mb-5">
                     <div class="flex items-center space-4">

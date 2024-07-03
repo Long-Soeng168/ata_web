@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Video;
+use App\Models\VideoCategory;
 use FFMpeg\FFMpeg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,8 @@ class VideoController extends Controller
 
     public function create()
     {
-        return view('admin.videos.create');
+        $category = VideoCategory::all();
+        return view('admin.videos.create', compact('category'));
     }
 
     public function store(Request $request)
@@ -34,6 +36,7 @@ class VideoController extends Controller
             'video' => 'required|mimes:mp4,avi,mov|max:20000',
             'description' => 'nullable',
             'status' => 'required|in:free,price',
+            'category_id' => 'required',
         ]);
 
         $file = $request->file('video');
@@ -60,6 +63,7 @@ class VideoController extends Controller
             'path_720p' => $path720p,
             'path_1080p' => $path1080p,
             'status' => $request->status,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('admin.videos.index')->with('success', 'Video uploaded and transcoded successfully.');
@@ -72,19 +76,55 @@ class VideoController extends Controller
 
     public function edit(Video $video)
     {
-        return view('admin.videos.edit', compact('video'));
+        $categories = VideoCategory::all();
+        return view('admin.videos.edit', compact('video', 'categories'));
     }
 
     public function update(Request $request, Video $video)
-    {
-        $request->validate([
-            'title' => 'required',
-        ]);
+{
+    $request->validate([
+        'title' => 'required',
+        'video' => 'nullable|mimes:mp4,avi,mov|max:20000', // Allow null to skip file update
+        'description' => 'nullable',
+        'status' => 'required|in:free,price',
+        'category_id' => 'required',
+    ]);
 
-        $video->update($request->only('title'));
+    // Update the video fields
+    $video->title = $request->title;
+    $video->description = $request->description;
+    $video->status = $request->status;
+    $video->category_id = $request->category_id;
 
-        return redirect()->route('admin.videos.index')->with('success', 'Video updated successfully.');
+    // Check if a new video file is uploaded
+    if ($request->hasFile('video')) {
+        $file = $request->file('video');
+        $originalPath = $file->store('videos/original', 'public');
+
+        // Transcode video to different qualities
+        try {
+            $path360p = $this->transcodeVideo($originalPath, '360p', 640, 360);
+            $path480p = $this->transcodeVideo($originalPath, '480p', 854, 480);
+            $path720p = $this->transcodeVideo($originalPath, '720p', 1280, 720);
+            $path1080p = $this->transcodeVideo($originalPath, '1080p', 1920, 1080);
+
+            // Update paths in the video model
+            $video->original_path = $originalPath;
+            $video->path_360p = $path360p;
+            $video->path_480p = $path480p;
+            $video->path_720p = $path720p;
+            $video->path_1080p = $path1080p;
+        } catch (\Exception $e) {
+            // Handle transcoding error
+            return redirect()->back()->with('error', 'Failed to transcode video: ' . $e->getMessage());
+        }
     }
+
+    // Save the updated video record
+    $video->save();
+
+    return redirect()->route('admin.videos.index')->with('success', 'Video updated successfully.');
+}
 
     public function destroy(Video $video)
     {

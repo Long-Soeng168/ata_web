@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\VideoCategoryController;
 use App\Http\Controllers\Admin\VideoController;
 
 /*
@@ -122,6 +123,7 @@ Route::group([
     Route::resource('promotions', PromotionController::class);
     Route::resource('videos', VideoController::class);
     Route::get('videos/stream/{video}/{quality}', [VideoController::class, 'stream'])->name('videos.stream');
+    Route::resource('video_categories', VideoCategoryController::class);
 
 
     Route::get('addmore', function () {
