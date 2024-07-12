@@ -18,5 +18,11 @@ class Video extends Model
         'path_720p',
         'path_1080p',
         'status',
+        'category_id', // Adding category_id to fillable
     ];
+
+    public function videocategory()
+    {
+        return $this->belongsTo(VideoCategory::class, 'category_id', 'id');
+    }
 }

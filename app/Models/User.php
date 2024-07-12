@@ -60,4 +60,10 @@ class User extends Authenticatable
         return $this->hasMany(Garage::class , 'create_by_user_id');
     }
 
+    public function garageposts()
+    {
+        return $this->hasMany(GaragePost::class , 'create_by_user_id');
+    }
+    
+
 }

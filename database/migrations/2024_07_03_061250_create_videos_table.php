@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('path_480p')->nullable();
             $table->string('path_720p')->nullable();
             $table->string('path_1080p')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('video_categories')->onDelete('set null');
             $table->enum('status', ['free', 'price'])->default('free');
             $table->timestamps();
         });

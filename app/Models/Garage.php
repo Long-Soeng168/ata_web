@@ -22,4 +22,9 @@ class Garage extends Model
     {
         return $this->hasMany(Promotion::class);
     }
+
+    public function garagePosts()
+    {
+        return $this->hasMany(GaragePost::class);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AllItemController;
 use App\Http\Controllers\Admin\AppIntroController;
+use App\Http\Controllers\Admin\GaragePostController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\BrandController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\VideoCategoryController;
 use App\Http\Controllers\Admin\VideoController;
 
 /*
@@ -117,9 +119,11 @@ Route::group([
 
     Route::resource('appintros', AppIntroController::class);
     Route::resource('garages', GarageController::class);
+    Route::resource('garageposts', GaragePostController::class);
     Route::resource('promotions', PromotionController::class);
     Route::resource('videos', VideoController::class);
     Route::get('videos/stream/{video}/{quality}', [VideoController::class, 'stream'])->name('videos.stream');
+    Route::resource('video_categories', VideoCategoryController::class);
 
 
     Route::get('addmore', function () {
