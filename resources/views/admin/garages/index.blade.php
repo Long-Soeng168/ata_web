@@ -68,7 +68,7 @@
                             </td>
                             <x-table-data value="{{ $garage->name }}" />
                             <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ $garage->logo ? asset('assets/images/garages/logo/' . $garage->logo) : asset('assets/images/default/no-pictures.png') }}"
+                                <img src="{{ $garage->logo ? asset('assets/images/garages/thumb/logo/' . $garage->logo) : asset('assets/images/default/no-pictures.png') }}"
                                     alt="{{ $garage->logo ? $garage->logo : 'Default Logo' }}"
                                     class="object-contain h-10 mr-3 aspect-video">
                             </th>
