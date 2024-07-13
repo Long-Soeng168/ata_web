@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\VideoCategoryController;
+use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Api\GaragePostController;
 use App\Http\Controllers\Api\GarageController;
 use Illuminate\Http\Request;
@@ -61,3 +63,7 @@ Route::get('get_models_by_brand/{brand_id}', [ModelController::class, 'getModels
 Route::resource('garages', GarageController::class);
 Route::resource('garages_posts', GaragePostController::class);
 Route::get('get_posts_by_garage/{id}', [GaragePostController::class, "getPostsByGarage"]);
+
+Route::resource('videos_category', VideoCategoryController::class);
+Route::resource('videos', VideoController::class);
+Route::get('get_videos_by_category/{id}', [VideoController::class, "getVideosByCategory"]);

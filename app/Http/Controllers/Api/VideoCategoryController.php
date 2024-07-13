@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Video;
+use App\Models\VideoCategory;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
-class VideoController extends Controller
+class VideoCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +14,12 @@ class VideoController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
-        if ($search) {
-            $videos = Video::where('title', 'LIKE', "%$search%")->paginate(10);
-        } else {
-            $videos = Video::paginate(10);
+        if($search){
+            $video_categories = VideoCategory::where('name', 'LIKE', "%$search%")->paginate(10);
+        }else {
+            $video_categories = VideoCategory::paginate(10);
         }
-        return response()->json($videos);
+        return response()->json($video_categories);
     }
 
     /**
@@ -42,15 +41,16 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function show(string $id)
     {
-        return response()->json($video);
+        $category = VideoCategory::find($id);
+        if (!$category) {
+            return redirect()->back()->withErrors(['error' => 'Category not found']);
+        }
+
+        return response()->json($category);
     }
 
-    public function getVideosByCategory($id) {
-        $videos = Video::where("category_id", $id)->paginate(10);
-        return response()->json($videos);
-    }
     /**
      * Show the form for editing the specified resource.
      */
