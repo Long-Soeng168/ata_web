@@ -65,30 +65,24 @@
 
                             <x-table-data value="{{ $garage->name }}" />
 
-                            @if ($garage->logo)
-                                <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                            <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                @if ($garage->logo)
                                     <img src="{{ asset('assets/images/garages/thumb/logo/' . $garage->logo) }}"
                                         alt="{{ $garage->logo }}" class="object-cover h-10 mr-3 aspect-video">
-                                </th>
-                            @else
-                                <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                @else
                                     <img src="{{ asset('assets/images/default/no-pictures.png') }}" alt="Default Logo"
                                         class="object-contain h-10 mr-3 aspect-video">
-                                </th>
-                            @endif
-                            @if ($garage->banner)
-                                <th scope="row"
-                                    class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                @endif
+                            </th>
+                            <th scope="row"
+                                class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                @if ($garage->banner)
                                     <img src="{{ asset('assets/images/garages/thumb/banner/' . $garage->banner) }}"
                                         alt="{{ $garage->banner }}" class="object-cover h-10 mr-3 aspect-video">
                                 @else
-                                <th scope="row"
-                                    class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                                     <img src="{{ asset('assets/images/default/no-pictures.png') }}" alt="Default Banner"
                                         class="object-contain h-10 mr-3 aspect-video">
-                                </th>
-                            @endif
-
+                                @endif
                             </th>
 
 
