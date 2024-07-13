@@ -469,14 +469,7 @@
                             <span class="ml-3">Categories</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.video_categories.index') }}"
-                            class="{{ request()->is('admin/video_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
-                            <span class="ml-3">Video Categories</span>
-                        </x-sidebar-item>
-                    </li>
+
                     <li>
                         <x-sidebar-item href="{{ route('admin.bodytypes.index') }}"
                             class="{{ request()->is('admin/bodytypes*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
@@ -501,20 +494,6 @@
                             <span class="ml-3">Models</span>
                         </x-sidebar-item>
                     </li>
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.types.index') }}"
-                            class="{{ request()->is('admin/types*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Types</span>
-                        </x-sidebar-item>
-                    </li> --}}
-                    {{-- <li>
-                        <x-sidebar-item href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-minus"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6"/></svg>
-                            <span class="ml-3">Reports</span>
-                        </x-sidebar-item>
-                    </li> --}}
                     <li>
                         <x-sidebar-item href="{{ route('admin.garages.index') }}"
                             class="{{ request()->is('admin/garages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
@@ -540,6 +519,23 @@
                         </x-sidebar-item>
                     </li>
                     <li>
+                        <x-sidebar-item href="{{ route('admin.video_categories.index') }}"
+                            class="{{ request()->is('admin/video_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
+                            <span class="ml-3">Video Categories</span>
+                        </x-sidebar-item>
+                    </li>
+
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.promotions.index') }}"
+                            class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <span class="ml-3">Promotions</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
                         <x-sidebar-item href="{{ route('admin.pdfs.index') }}"
                             class="{{ request()->is('admin/pdfs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
@@ -548,13 +544,6 @@
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('admin.promotions.index') }}"
-                            class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Promotions</span>
-                        </x-sidebar-item>
-
                         <x-sidebar-item href="{{ url('/get_resources/documents') }}"
                             class="{{ request()->is('get_resources/documents*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
@@ -562,6 +551,7 @@
                             <span class="ml-3">Documents</span>
                         </x-sidebar-item>
                     </li>
+
                 </ul>
                 {{-- <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
