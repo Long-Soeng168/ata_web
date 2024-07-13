@@ -64,14 +64,17 @@
                             </td>
                             <x-table-data value="{{ $garage->name }}" />
                             <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ asset('assets/images/garages/thumb/logo/' . $garage->logo) }}"
-                                    alt="{{ $garage->logo }}" class="object-cover h-10 mr-3 aspect-video">
+                                <img src="{{ $garage->logo ? asset('assets/images/garages/thumb/logo/' . $garage->logo) : asset('assets/images/default/no-pictures.png') }}"
+                                    alt="{{ $garage->logo ? $garage->logo : 'Default Logo' }}"
+                                    class="object-contain h-10 mr-3 aspect-video">
                             </th>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ asset('assets/images/garages/thumb/banner/' . $garage->banner) }}"
-                                    alt="{{ $garage->banner }}" class="object-cover h-10 mr-3 aspect-video">
+                                <img src="{{ $garage->banner ? asset('assets/images/garages/thumb/banner/' . $garage->banner) : asset('assets/images/default/no-pictures.png') }}"
+                                    alt="{{ $garage->banner ? $garage->banner : 'Default Banner' }}"
+                                    class="object-contain h-10 mr-3 aspect-video">
                             </th>
+
                             <x-table-data value="{{ $garage->location }}" />
                             <x-table-data value="{{ $garage->user?->name }}" />
                             <x-table-data value="{{ $garage->like }}" />
@@ -94,8 +97,7 @@
                                         deleteUrl="{{ route('admin.garages.destroy', $garage->id) }}"
                                         message="Are you sure you want to delete this Item" tooltipText="Delete item" />
                                     <x-edit-button identifier="{{ $garage->id }}"
-                                        editUrl="{{ route('admin.garages.edit', $garage->id) }}"
-                                        tooltipText="Edit item" />
+                                        editUrl="{{ route('admin.garages.edit', $garage->id) }}" tooltipText="Edit item" />
                                 </div>
                             </td>
                         </tr>
