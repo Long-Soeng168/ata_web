@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\GaragePostController;
+use App\Http\Controllers\Api\GarageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,3 +56,8 @@ Route::resource('body_types', BodyTypeController::class);
 Route::resource('brands', BrandController::class);
 Route::resource('models', ModelController::class);
 Route::get('get_models_by_brand/{brand_id}', [ModelController::class, 'getModelsByBrand']);
+
+
+Route::resource('garages', GarageController::class);
+Route::resource('garages_posts', GaragePostController::class);
+Route::get('get_posts_by_garage/{id}', [GaragePostController::class, "getPostsByGarage"]);
