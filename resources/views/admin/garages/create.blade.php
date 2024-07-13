@@ -45,7 +45,7 @@
                     </x-select-option>
                     <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
                 </div>
-                <div>
+                {{-- <div>
                     <x-input-label for="like" :value="__('Like')" />
                     <x-text-input id="like" class="block w-full mt-1" type="number" name="like" :value="old('like')"
                         placeholder="like" />
@@ -68,7 +68,7 @@
                     <x-text-input id="comment" class="block w-full mt-1" type="text" name="comment" :value="old('comment')"
                         placeholder="comment" />
                     <x-input-error :messages="$errors->get('comment')" class="mt-2" />
-                </div>
+                </div> --}}
             </div>
 
             <div class="grid mt-4 md:grid-cols-2 md:gap-6">

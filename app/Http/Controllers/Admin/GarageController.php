@@ -43,11 +43,11 @@ class GarageController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            // 'user_id' => 'required|exists:users,id',
-            'like' => 'integer',
-            'unlike' => 'integer',
-            'rate' => 'integer',
-            'comment' => 'nullable|string',
+            'user_id' => 'required',
+            // 'like' => 'integer',
+            // 'unlike' => 'integer',
+            // 'rate' => 'integer',
+            // 'comment' => 'nullable|string',
             'logo' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'banner' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'nullable|string',
@@ -78,7 +78,7 @@ class GarageController extends Controller
         }
 
         // Add the authenticated user's ID
-        $input['user_id'] = $request->user()->id;
+        // $input['user_id'] = $request->user()->id;
 
         // Create the garage
         $garage = Garage::create($input);
@@ -115,10 +115,10 @@ class GarageController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'like' => 'integer',
-            'unlike' => 'integer',
-            'rate' => 'integer',
-            'comment' => 'nullable|string',
+            // 'like' => 'integer',
+            // 'unlike' => 'integer',
+            // 'rate' => 'integer',
+            // 'comment' => 'nullable|string',
             'logo' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'banner' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bio' => 'nullable|string',
