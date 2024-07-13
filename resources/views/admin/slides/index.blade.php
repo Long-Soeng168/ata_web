@@ -1,6 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Slides')" />
         <div
             class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
@@ -23,7 +24,7 @@
                 </form>
             </div>
             <div
-                class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
                 <x-primary-button href="{{ route('admin.slides.create') }}">
                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +47,7 @@
                         <th scope="col" class="px-4 py-3">Image</th>
                         <th scope="col" class="px-4 py-3">Name</th>
 
-                        <th scope="col" class="text-center py-3">Action</th>
+                        <th scope="col" class="py-3 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,13 +59,13 @@
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                                 <img src="{{ asset('assets/images/slides/thumb/' . $slide->image) }}" alt="iMac Front Image"
-                                    class="h-10 aspect-video object-cover mr-3">
+                                    class="object-cover h-10 mr-3 aspect-video">
                             </th>
                             <x-table-data value="{{ $slide->name }}" />
 
 
                             <td class="px-6 py-4">
-                                <div class="flex items-start gap-3 justify-center">
+                                <div class="flex items-start justify-center gap-3">
                                     <x-add-more-button identifier="{{ $slide->id }}"
                                         addMoreUrl="{{ route('admin.addmore') }}" tooltipText="Add More" />
                                     <x-view-detail-button identifier="{{ $slide->id }}"

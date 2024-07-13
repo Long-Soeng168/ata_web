@@ -2,6 +2,7 @@
 @section('content')
 
 <div>
+    @include('admin.components.success')
     <x-page-header :value="__('Dashboard Overview')"/>
     <div class="grid grid-cols-12">
         <div class="w-full col-span-12 p-6 lg:col-span-4" id="chart-container">

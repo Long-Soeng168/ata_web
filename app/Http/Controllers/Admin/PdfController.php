@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pdf;
-use App\Models\PdfCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,8 +22,8 @@ class PdfController extends Controller
 
     public function create()
     {
-        $categories = PdfCategory::all();
-        return view('admin.pdfs.create', compact('categories'));
+
+        return view('admin.pdfs.create');
     }
 
     public function store(Request $request)
@@ -33,25 +32,20 @@ class PdfController extends Controller
         $request->validate([
             'title' => 'required',
             'pdf' => 'required|mimes:pdf|max:20000',
-            'description' => 'nullable',
-            'status' => 'required|in:free,price',
             // 'category_id' => 'required',
         ]);
 
         // Handle the PDF file upload
         $file = $request->file('pdf');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        $destinationPath = public_path('assets/pdfs/original');
+        $destinationPath = storage_path('pdfs/original');
         $file->move($destinationPath, $fileName);
-        $originalPath = 'assets/pdfs/original/' . $fileName;
+        $originalPath = 'pdfs/original/' . $fileName;
 
         // Save the PDF information to the database
         Pdf::create([
             'title' => $request->title,
-            'description' => $request->description,
             'original_path' => $originalPath,
-            'status' => $request->status,
-            // 'category_id' => $request->category_id,
         ]);
 
         // Redirect with success message
@@ -65,8 +59,7 @@ class PdfController extends Controller
 
     public function edit(Pdf $pdf)
     {
-        $categories = PdfCategory::all();
-        return view('admin.pdfs.edit', compact('pdf', 'categories'));
+        return view('admin.pdfs.edit', compact('pdf'));
     }
 
     public function update(Request $request, Pdf $pdf)
@@ -74,24 +67,18 @@ class PdfController extends Controller
         $request->validate([
             'title' => 'required',
             'pdf' => 'nullable|mimes:pdf|max:20000', // Allow null to skip file update
-            'description' => 'nullable',
-            'status' => 'required|in:free,price',
-            // 'category_id' => 'required',
         ]);
 
         // Update the PDF fields
         $pdf->title = $request->title;
-        $pdf->description = $request->description;
-        $pdf->status = $request->status;
-        $pdf->category_id = $request->category_id;
 
         // Check if a new PDF file is uploaded
         if ($request->hasFile('pdf')) {
             $file = $request->file('pdf');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = public_path('assets/pdfs/original');
+            $destinationPath = storage_path('pdfs/original');
             $file->move($destinationPath, $fileName);
-            $originalPath = 'assets/pdfs/original/' . $fileName;
+            $originalPath = 'pdfs/original/' . $fileName;
 
             // Update the path in the PDF model
             $pdf->original_path = $originalPath;
@@ -107,7 +94,7 @@ class PdfController extends Controller
     {
         // Delete PDF file from storage
         try {
-            Storage::delete(public_path($pdf->original_path));
+            Storage::delete(storage_path($pdf->original_path));
         } catch (\Exception $e) {
             // Handle file deletion error
             return redirect()->back()->with('error', 'Failed to delete PDF file.');
@@ -125,7 +112,7 @@ class PdfController extends Controller
             abort(403);
         }
 
-        $filePath = public_path($pdf->original_path);
+        $filePath = storage_path($pdf->original_path);
 
         if (!file_exists($filePath)) {
             abort(404); // File not found

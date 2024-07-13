@@ -1,12 +1,8 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Promotion')" />
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <div
             class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
             <div class="w-full md:w-1/2">
@@ -46,9 +42,8 @@
 
 
                     <th scope="col" class="px-4 py-3 uppercase">No</th>
-                    <th scope="col" class="px-4 py-3 uppercase">Title</th>
                     <th scope="col" class="px-4 py-3 uppercase">Image</th>
-                    <th scope="col" class="px-4 py-3 uppercase">Description</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Title</th>
                     <th scope="col" class="px-4 py-3 uppercase">Start</th>
                     <th scope="col" class="px-4 py-3 uppercase">End</th>
                     <th scope="col" class="py-3 text-center">Action</th>
@@ -60,13 +55,17 @@
                             <td class="w-4 px-4 py-3">
                                 {{ $loop->iteration }}
                             </td>
-                            <x-table-data value="{{ $promotion->title }}" />
-                            <th scope="row"
-                                class=" items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ asset('assets/images/promotions/thumb/' . $promotion->image) }}"
+                            <td scope="row"
+                                class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                @if ($promotion->image)
+                                    <img src="{{ asset('assets/images/promotions/thumb/' . $promotion->image) }}"
                                     alt="{{ $promotion->logo }}" class="object-cover h-10 mr-3 aspect-video">
-                            </th>
-                            <x-table-data value="{{ $promotion->description }}" />
+                                @else
+                                    <p>No Image</p>
+                                @endif
+                             </td>
+                            <x-table-data value="{{ $promotion->title }}" />
+
 
                             <x-table-data value="{{ $promotion->start_date}}" />
                             <x-table-data value="{{ $promotion->end_date }}" />

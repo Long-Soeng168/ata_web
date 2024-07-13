@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('pdfs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
             $table->string('original_path');
-            $table->enum('status', ['free', 'price']);
-            $table->bigInteger('category_id')->nullable();
             $table->timestamps();
         });
     }

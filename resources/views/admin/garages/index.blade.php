@@ -1,12 +1,8 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Garages')" />
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <div
             class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
             <div class="w-full md:w-1/2">
@@ -67,7 +63,7 @@
                                 {{ $loop->iteration }}
                             </td>
                             <x-table-data value="{{ $garage->name }}" />
-                            <th scope="row" class=" items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                            <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                                 <img src="{{ asset('assets/images/garages/thumb/logo/' . $garage->logo) }}"
                                     alt="{{ $garage->logo }}" class="object-cover h-10 mr-3 aspect-video">
                             </th>

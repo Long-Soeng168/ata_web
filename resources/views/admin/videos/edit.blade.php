@@ -55,7 +55,7 @@
                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 md:gap-6 pt-4">
+            <div class="grid pt-4 md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full group">
                     <x-input-label for="status" :value="__('Status')" />
                     <x-select-option id="status" name="status">
@@ -86,12 +86,9 @@
             <div class="grid mt-4 md:grid-cols-1 md:gap-6">
                 <div class="mt-5 mb-5">
                     <div class="flex items-center space-4">
-                        <div class="max-w-40">
-                            <img id="selected-image" src="#" alt="Selected Image"
-                                class="hidden max-w-full pr-4 max-h-40" />
-                        </div>
+
                         <div class="flex-1">
-                            <x-input-label required for="video" :value="__('Upload Video')" />
+                            <x-input-label required for="video" :value="__('Upload Video (Optional)')" />
                             <x-file-input id="dropzone-file" type="file" name="video"
                                 accept="video/mp4, video/avi, video/mov" onchange="displaySelectedImage(event)" />
                             <x-input-error :messages="$errors->get('video')" class="mt-2" />
@@ -102,7 +99,7 @@
 
             <div class="mb-5">
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description', $video->description) }}</textarea>
+                <textarea id="description" name="description" class="block w-full p-2 mt-1 border border-gray-300 rounded" rows="4">{{ old('description', $video->description) }}</textarea>
             </div>
 
             <div>
@@ -110,7 +107,7 @@
                     Go back
                 </x-outline-button>
                 <button type="button" onclick="submitForm()"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
+                    class="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
                     Submit
                 </button>
             </div>

@@ -41,15 +41,15 @@ class VideoController extends Controller
         // Handle the video file upload
         $file = $request->file('video');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        $destinationPath = public_path('assets/videos/original');
+        $destinationPath = storage_path('videos/original');
         $file->move($destinationPath, $fileName);
-        $originalPath = 'assets/videos/original/' . $fileName;
+        $video_name = $fileName;
 
         // Save the video information to the database
         Video::create([
             'title' => $request->title,
             'description' => $request->description,
-            'original_path' => $originalPath,
+            'video_name' => $video_name,
             'status' => $request->status,
             'category_id' => $request->category_id,
         ]);
@@ -89,12 +89,12 @@ class VideoController extends Controller
         if ($request->hasFile('video')) {
             $file = $request->file('video');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = public_path('assets/videos/original');
+            $destinationPath = storage_path('videos/original');
             $file->move($destinationPath, $fileName);
-            $originalPath = 'assets/videos/original/' . $fileName;
+            $video_name = $fileName;
 
             // Update the path in the video model
-            $video->original_path = $originalPath;
+            $video->video_name = $video_name;
         }
 
         // Save the updated video record
@@ -107,7 +107,7 @@ class VideoController extends Controller
     {
         // Delete video file from storage
         try {
-            Storage::delete(public_path($video->original_path));
+            Storage::delete(storage_path('video/original/'.$video->video_name));
         } catch (\Exception $e) {
             // Handle file deletion error
             return redirect()->back()->with('error', 'Failed to delete video file.');
@@ -118,7 +118,7 @@ class VideoController extends Controller
         return redirect()->route('admin.videos.index')->with('success', 'Video deleted successfully.');
     }
 
-    public function stream(Video $video)
+    public function stream(Video $video, $path)
     {
 
         // Ensure that only authorized users can access the stream
@@ -126,8 +126,9 @@ class VideoController extends Controller
             abort(403);
         }
 
-        $filePath = public_path($video->original_path);
+        $filePath = storage_path('videos/'. $path. '/'. $video->video_name);
 
+        // return $filePath;
         if (!file_exists($filePath)) {
             abort(404); // File not found
         }
