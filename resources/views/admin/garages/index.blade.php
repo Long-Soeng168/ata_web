@@ -1,12 +1,8 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Garages')" />
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <div
             class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
             <div class="w-full md:w-1/2">

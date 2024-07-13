@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description'); // Adding description column
-            $table->string('original_path');
-            $table->string('path_360p')->nullable();
-            $table->string('path_480p')->nullable();
-            $table->string('path_720p')->nullable();
-            $table->string('path_1080p')->nullable();
+            $table->string('video_name');
             $table->foreignId('category_id')->nullable()->constrained('video_categories')->onDelete('set null');
             $table->enum('status', ['free', 'price'])->default('free');
             $table->timestamps();

@@ -62,7 +62,7 @@ class GaragePostController extends Controller
 
         try {
             Image::make($image->getRealPath())->save($imagePath);
-            Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
+            Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
             $garagepost->image = $fileName;
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);

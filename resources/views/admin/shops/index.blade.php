@@ -1,6 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Shops')" />
 
         <div

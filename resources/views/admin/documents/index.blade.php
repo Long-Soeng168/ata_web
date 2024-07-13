@@ -1,6 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div class="px-4">
+        @include('admin.components.success')
         <div class="flex items-center justify-between mt-2 border-b rounded-t sm:mb-5 dark:border-gray-600">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                 {{ __('Documents') }}

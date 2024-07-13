@@ -54,7 +54,7 @@
 
             </div>
 
-            <div class="grid mt-4 md:grid-cols-2 md:gap-6">
+            <div class="grid mt-4 md:grid-cols-1 md:gap-6">
                 <!-- Category, Brand, Model, and Type -->
 
 
@@ -76,11 +76,11 @@
 
             </div>
             <div>
-                <div class="grid md:grid-cols-1 md:gap-6 mb-6">
+                <div class="grid mb-6 md:grid-cols-1 md:gap-6">
                 <!-- Description -->
                     <div class="mb-5">
                         <x-input-label for="description" :value="__('Description')" />
-                        <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description') }}</textarea>
+                        <textarea id="description" name="description" class="block w-full p-2 mt-1 border rounded-md" rows="4">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <x-outline-button href="{{ URL::previous() }}">

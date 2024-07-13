@@ -11,7 +11,7 @@
                 <!-- Name Address -->
                 <div>
                     <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $garagepost->name)"
+                    <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name', $garagepost->name)"
                         required autofocus placeholder="Name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -28,20 +28,17 @@
                     </x-select-option>
                     <x-input-error :messages="$errors->get('garage_id')" class="mt-2" />
                 </div>
-                <div class="mb-5">
-                    <x-input-label for="description" :value="__('Description')" />
-                    <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description',$garagepost->description) }}</textarea>
-                </div>
+
             </div>
             <div class="my-5">
                 <div class="flex items-center space-4">
                     <div class="max-w-40">
                         @if ($garagepost->image)
-                            <img id="selected-image" src="{{ asset('assets/images/garageposts/' . $garagepost->image) }}" alt="Selected Image"
-                                class="max-w-full max-h-40 pr-4" />
+                            <img id="selected-image" src="{{ asset('assets/images/garageposts/thumb/' . $garagepost->image) }}" alt="Selected Image"
+                                class="max-w-full pr-4 max-h-40" />
                         @else
                             <img id="selected-image" src="#" alt="Selected Image"
-                                class="hidden max-w-full max-h-40 pr-4" />
+                                class="hidden max-w-full pr-4 max-h-40" />
                         @endif
                     </div>
                     <div class="flex-1">
@@ -51,6 +48,10 @@
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
                 </div>
+            </div>
+            <div class="mb-5">
+                <x-input-label for="description" :value="__('Description')" />
+                <textarea id="description" name="description" class="block w-full p-2 mt-1 border rounded-md" rows="4">{{ old('description',$garagepost->description) }}</textarea>
             </div>
 
             <div>

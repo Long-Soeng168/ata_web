@@ -114,7 +114,7 @@ Route::group([
     Route::resource('garageposts', GaragePostController::class);
     Route::resource('promotions', PromotionController::class);
     Route::resource('videos', VideoController::class);
-    Route::get('videos/stream/{video}/{quality}', [VideoController::class, 'stream'])->name('videos.stream');
+    Route::get('videos/stream/{video}/{path}', [VideoController::class, 'stream'])->name('videos.stream');
     Route::resource('video_categories', VideoCategoryController::class);
 
 

@@ -1,12 +1,9 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
+        @include('admin.components.success')
         <x-page-header :value="__('Videos')" />
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+
         <div
             class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
             <div class="w-full md:w-1/2">
@@ -24,7 +21,7 @@
                             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Search...">
                     </div>
-                    
+
                 </form>
             </div>
             <div
@@ -49,7 +46,6 @@
 
                     <th scope="col" class="px-4 py-3 uppercase">No</th>
                     <th scope="col" class="px-4 py-3 uppercase">Title</th>
-                    <th scope="col" class="px-4 py-3 uppercase">Descriptions</th>
                     <th scope="col" class="px-4 py-3 uppercase">Category</th>
                     <th scope="col" class="px-4 py-3 uppercase">Status</th>
                     <th scope="col" class="py-3 text-center">Action</th>
@@ -63,7 +59,6 @@
                             </td>
                             <x-table-data value="{{ $video->title }}" />
 
-                            <x-table-data value="{{ $video->description}}" />
                             <x-table-data value="{{ $video->videocategory?->name}}" />
                             <x-table-data value="{{ $video->status }}" />
 
