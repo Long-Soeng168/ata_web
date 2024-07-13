@@ -10,6 +10,9 @@
             </ul>
         </div>
     @endif
+    @if (session('error'))
+        <p class="text-red-400">{{ session('error') }}</p>
+    @endif
 
     <div class="p-4">
         <x-form-header :value="__('Create Video')" class="p-4" />
@@ -74,7 +77,7 @@
                 <x-outline-button href="{{ URL::previous() }}">
                     Go back
                 </x-outline-button>
-                <button type="button" onclick="submitForm()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
+                <button type="button" onclick="submitForm()" class="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
                     Submit
                 </button>
             </div>

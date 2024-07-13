@@ -27,64 +27,56 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\VideoCategoryController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\PdfController;
 
 /*
 |--------------------------------------------------------------------------
 */
 // Make storage:link
-Route::get('/symlink', function () {
-    $target = $_SERVER['DOCUMENT_ROOT'] . '/storage/app/public';
-    $link = $_SERVER['DOCUMENT_ROOT'] . '/public/storage';
-    symlink($target, $link);
-    echo "Done";
+// Route::get('/symlink', function () {
+//     $target = $_SERVER['DOCUMENT_ROOT'] . '/storage/app/public';
+//     $link = $_SERVER['DOCUMENT_ROOT'] . '/public/storage';
+//     symlink($target, $link);
+//     echo "Done";
+// });
+
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::resource('pdfs', PdfController::class);
+    Route::get('pdfs/{pdf}/stream', [PdfController::class, 'stream'])->name('pdfs.stream');
 });
+
+Route::get('show_pdf_file/{path}', function($path){
+    // return $path;
+      // Ensure that only authorized users can access the stream
+    if (!auth()->check()) {
+        abort(403);
+    }
+
+    $filePath = storage_path($path);
+
+    if (!file_exists($filePath)) {
+        abort(404); // File not found
+    }
+
+    $stream = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($filePath) {
+        $stream = fopen($filePath, 'r');
+        fpassthru($stream);
+        fclose($stream);
+    });
+
+    $stream->headers->set('Content-Type', 'application/pdf');
+    $stream->headers->set('Content-Length', filesize($filePath));
+
+    return $stream;
+})->where('path', '.*');
+
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-
-use Illuminate\Support\Facades\File;
-
-Route::get('/get_resources/{path?}', function ($path = null) {
-    // dd($path);
-    // Specify the directory path relative to the public folder
-    if ($path) {
-        $directory = public_path($path);
-    } else {
-        $directory = public_path();
-    }
-
-    // Check if the directory exists
-    if (File::isDirectory($directory)) {
-        // Get all files in the current directory (excluding subdirectories)
-        $files = File::files($directory);
-
-        // Get all directories (subdirectories) in the directory
-        $directories = File::directories($directory);
-
-        // Initialize arrays to store file names and folder names
-        $fileNames = [];
-        $folderNames = [];
-
-        // Iterate through files and store file names
-        foreach ($files as $file) {
-            $fileNames[] = $file->getFilename();
-        }
-
-        // Iterate through directories and store folder names
-        foreach ($directories as $dir) {
-            $folderNames[] = basename($dir); // Get the base name of the directory
-        }
-
-        // Return the list of filenames and folder names as JSON response
-        // return response()->json(['files' => $fileNames, 'folders' => $folderNames]);
-        return view('view-files', ['files' => $fileNames, 'folders' => $folderNames]);
-    } else {
-        // Handle case where directory does not exist
-        abort(404, 'Directory not found');
-    }
-})->where('path', '.*');
 
 Route::group([
     'middleware' => 'auth',
@@ -136,9 +128,9 @@ Route::get('/get_resources/{path?}', function ($path = null) {
     // dd($path);
     // Specify the directory path relative to the public folder
     if($path ){
-        $directory = public_path($path);
+        $directory = storage_path($path);
     }else{
-        $directory = public_path();
+        $directory = storage_path();
     }
 
     // Check if the directory exists

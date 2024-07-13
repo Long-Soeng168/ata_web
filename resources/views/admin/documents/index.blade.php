@@ -77,15 +77,20 @@
             <ul class="mb-6">
                 @php
                     $currentUrl = url()->current(); // Get the current URL
-                    $removedGetUrl = str_replace('/get_resources/', '/', $currentUrl); // Remove /get/ from the URL
+                    $removedGetUrl = str_replace(env('APP_URL').'/get_resources/', '/', $currentUrl); // Remove /get/ from the URL
                 @endphp
                 @foreach ($files as $file)
                     <li class="mb-2">
-                        <button onclick="openPdfPopup('{{ $removedGetUrl . '/' . $file }}')"
+                        <a href="/show_pdf_file{{ $removedGetUrl . '/' . $file }}" target="_blank"
                             class="flex items-center text-blue-500 hover:underline">
                             <img class="w-6 h-6 mr-2" src="{{ asset('assets/icons/file.png') }}" alt="">
                             {{ $file }}
-                        </button>
+                        </a>
+                        {{-- <button onclick="openPdfPopup('{{ $removedGetUrl . '/' . $file }}')"
+                            class="flex items-center text-blue-500 hover:underline">
+                            <img class="w-6 h-6 mr-2" src="{{ asset('assets/icons/file.png') }}" alt="">
+                            {{ $file }}
+                        </button> --}}
                     </li>
                 @endforeach
 
