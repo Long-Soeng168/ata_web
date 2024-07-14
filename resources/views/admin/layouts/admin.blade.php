@@ -378,37 +378,62 @@
                 <ul class="space-y-2">
                     <li>
                         <x-sidebar-item href="{{ route('admin.dashboard.index') }}"
-                            class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        <img src="{{ asset('assets/icons/slide.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Dashboard</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.appintros.index') }}"
-                            class="{{ request()->is('admin/appintros*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-                            <span class="ml-3">App Intro</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.users.index') }}"
-                            class="{{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <span class="ml-3">Users</span>
-                        </x-sidebar-item>
-                    </li>
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.customers.index') }}"
-                        class="{{ request()->is('admin/customers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-contact"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"/><rect width="18" height="18" x="3" y="4" rx="2"/><circle cx="12" cy="10" r="2"/><line x1="8" x2="8" y1="2" y2="4"/><line x1="16" x2="16" y1="2" y2="4"/></svg>
-                            <span class="ml-3">Customers</span>
-                        </x-sidebar-item>
-                    </li> --}}
 
+                    <li x-data="{
+                        open: {{ request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') ? 'true' : 'false' }},
+                        init() {
+                            if ({{ request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') ? 'true' : 'false' }}) {
+                                this.$nextTick(() => this.$refs.users.scrollIntoView({ behavior: 'smooth' }));
+                            }
+                        }
+                    }"
+                     x-ref="users"
+                     class="pt-1"
+                >
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                        @click="open = !open; if (open) $nextTick(() => $refs.users.scrollIntoView({ behavior: 'smooth' }))">
+                        <img src="{{ asset('assets/icons/user.png') }}" alt="icon"
+                            class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
+                        <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Users</span>
+                        <svg class="w-3 h-3 transition-transform duration-200 transform"
+                            :class="{ 'rotate-180': open }" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                        <li>
+                            <a href="{{ url('admin/users') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                Users
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('admin/roles') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/roles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('admin/permissions') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/permissions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                Permissions
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
 
                 </ul>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
@@ -416,154 +441,241 @@
                         <x-sidebar-item href="{{ route('admin.slides.index') }}"
                         class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
+                        <img src="{{ asset('assets/icons/slide.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Slides</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.appintros.index') }}"
+                        class="{{ request()->is('admin/appintros*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <img src="{{ asset('assets/icons/appintro.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="ml-3">App Intro</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.promotions.index') }}"
+                        class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <img src="{{ asset('assets/icons/promotion.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="ml-3">promotions</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.dtcs.index') }}"
                         class="{{ request()->is('admin/dtcs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
+                        <img src="{{ asset('assets/icons/dtc.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">DTC</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('admin.shops.index') }}"
-                        class="{{ request()->is('admin/shops*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
-                            <span class="ml-3">Shops</span>
-                        </x-sidebar-item>
-                    </li>
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.allitems.index') }}"
-                        class="{{ request()->is('admin/allitems*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
-                            <span class="ml-3">All Items</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.items.index') }}"
-                        class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
-                            <span class="ml-3">Items</span>
-                        </x-sidebar-item>
-                    </li> --}}
-                    {{-- Start Products --}}
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.products.index') }}"
-                        class="{{ request()->is('admin/products*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
-                            <span class="ml-3">Products</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.categories.index') }}"
-                            class="{{ request()->is('admin/categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
-                            <span class="ml-3">Categories</span>
-                        </x-sidebar-item>
-                    </li>
-
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.bodytypes.index') }}"
-                            class="{{ request()->is('admin/bodytypes*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Body Types</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.brands.index') }}"
-                            class="{{ request()->is('admin/brands*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Brands</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.models.index') }}"
-                            class="{{ request()->is('admin/models*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Models</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.garages.index') }}"
-                            class="{{ request()->is('admin/garages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Garages</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.garageposts.index') }}"
-                            class="{{ request()->is('admin/garageposts*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Garage Posts</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.videos.index') }}"
-                            class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Videos</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.video_categories.index') }}"
-                            class="{{ request()->is('admin/video_categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
-                            <span class="ml-3">Video Categories</span>
-                        </x-sidebar-item>
-                    </li>
-
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.promotions.index') }}"
-                            class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Promotions</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
                         <x-sidebar-item href="{{ route('admin.pdfs.index') }}"
-                            class="{{ request()->is('admin/pdfs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        class="{{ request()->is('admin/pdfs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Pdfs</span>
+                        <img src="{{ asset('assets/icons/file.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="ml-3">PDFS</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ url('/get_resources/documents') }}"
-                            class="{{ request()->is('get_resources/documents*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        class="{{ request()->is('get_resources/documents*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                            <span class="ml-3">Documents</span>
+                        <img src="{{ asset('assets/icons/folder.png') }}"
+                        alt="icon"
+                        class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="ml-3">documents</span>
                         </x-sidebar-item>
                     </li>
+                    <li x-data="{
+                        open: {{
+                                request()->is('admin/shop*') ||
+                                request()->is('admin/products*') ||
+                                request()->is('admin/categories*') ||
+                                request()->is('admin/bodytypes*') ||
+                                request()->is('admin/brands*') ||
+                                request()->is('admin/models*')
+                            ? 'true' : 'false' }},
+                        init() {
+                            if ({{
+                                    request()->is('admin/shop*') ||
+                                    request()->is('admin/products*') ||
+                                    request()->is('admin/categories*') ||
+                                    request()->is('admin/bodytypes*') ||
+                                    request()->is('admin/brands*') ||
+                                    request()->is('admin/models*')
+                                ? 'true' : 'false' }}) {
+                                this.$nextTick(() => this.$refs.products.scrollIntoView({ behavior: 'smooth' }));
+                            }
+                        }
+                    }" x-ref="products" class="pt-1">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/products*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.products.scrollIntoView({ behavior: 'smooth' }))">
+                            <img src="{{ asset('assets/icons/ecommerce.png') }}"
+                                alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span
+                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">
+                                Shop
+                            </span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ url('admin/shops') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/shops') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    shops
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/products') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/products') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    products
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    categories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/bodytypes') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bodytypes') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Body Types
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/brands') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/brands') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    brands
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/models') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/models') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    models
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li x-data="{
+                        open: {{
+                                request()->is('admin/garages*') ||
+                                request()->is('admin/garageposts*')
+                            ? 'true' : 'false' }},
+                        init() {
+                            if ({{
+                                    request()->is('admin/garages*') ||
+                                    request()->is('admin/garageposts*')
+                                ? 'true' : 'false' }}) {
+                                this.$nextTick(() => this.$refs.garages.scrollIntoView({ behavior: 'smooth' }));
+                            }
+                        }
+                    }" x-ref="garages" class="pt-1">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/garages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.garages.scrollIntoView({ behavior: 'smooth' }))">
+                            <img src="{{ asset('assets/icons/garage.png') }}"
+                                alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span
+                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">
+                                Garage
+                            </span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ url('admin/garages') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/garages') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    garages
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/garageposts') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/garageposts') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Garage Posts
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-data="{
+                        open: {{
+                                request()->is('admin/videos*') ||
+                                request()->is('admin/video_categories*')
+                            ? 'true' : 'false' }},
+                        init() {
+                            if ({{
+                                    request()->is('admin/videos*') ||
+                                    request()->is('admin/video_categories*')
+                                ? 'true' : 'false' }}) {
+                                this.$nextTick(() => this.$refs.videos.scrollIntoView({ behavior: 'smooth' }));
+                            }
+                        }
+                    }" x-ref="videos" class="pt-1">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.videos.scrollIntoView({ behavior: 'smooth' }))">
+                            <img src="{{ asset('assets/icons/video.png') }}"
+                                alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span
+                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">
+                                Video
+                            </span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ url('admin/videos') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white capitalize dark:hover:bg-gray-700 {{ request()->is('admin/videos') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    videos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/video_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/video_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Video Play Lists
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                 </ul>
-                {{-- <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.settings.index') }}"
-                            class="{{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-                            <span class="ml-3">Settings</span>
-                        </x-sidebar-item>
-                    </li>
 
-                </ul> --}}
             </div>
             <div class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white dark:bg-gray-800">
                 <button id="theme-toggle" type="button" class="p-2 text-sm text-gray-600 rounded-lg hover:text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">

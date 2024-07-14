@@ -68,7 +68,6 @@
                 <div class="flex-1">
                     <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
-                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
             </div>
         </div>
@@ -87,7 +86,7 @@
                         class="mr-2"
                         {{-- {{ in_array($permission->id, $rolePermissions) ? "checked" : '' }} --}}
                     >
-                    <label for="permission_{{ $role->id }}">{{ $role->name }}</label>
+                    <label class="text-slate-800 dark:text-white" for="permission_{{ $role->id }}">{{ $role->name }}</label>
                 </div>
 
                 @endforeach

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\Admin\AdminRoleController;
+
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AllItemController;
 use App\Http\Controllers\Admin\AppIntroController;
@@ -84,8 +87,14 @@ Route::group([
     'as' => 'admin.'
 ], function () {
 
+    Route::resource('permissions', AdminPermissionController::class);
+    Route::resource('roles', AdminRoleController::class);
+    Route::get('roles/{id}/give-permissions', [AdminRoleController::class, 'givePermissionsToRole']);
+    Route::put('roles/{id}/give-permissions', [AdminRoleController::class, 'updatePermissionsToRole']);
+    Route::resource('users', AdminUserController::class );
+    Route::put('users/{user}/update_password', [AdminUserController::class, 'updateUserPassword']);
+
     Route::resource('dashboard', DashboardController::class);
-    Route::resource('users', AdminUserController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('items', ItemController::class);
     Route::resource('allitems', AllItemController::class);
