@@ -17,7 +17,7 @@
             enctype="multipart/form-data">
             @csrf
             @method ('PUT')
-            <div class="grid md:grid-cols-1 md:gap-6">
+            <div class="grid md:grid-cols-2 md:gap-6">
                 <!-- Name -->
                 <div>
                     <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
@@ -25,9 +25,21 @@
                         value="{{ old('code', $garage->name) }}" autofocus placeholder="Name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
+                <div class="relative z-0 w-full group">
+                    <x-input-label for="user_id" :value="__('Users')" />
+                    <x-select-option id="user_id" name="user_id">
+                        <option value="">Select User...</option>
+                        @forelse ($users as $user)
+                            <option value="{{ $user->id }}" {{ $garage->user_id ==  $user->id ? 'selected' : ''}}>{{ $user->name }}</option>
+                        @empty
+                            <option value=""> --No User--</option>
+                        @endforelse
+                    </x-select-option>
+                    <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                </div>
             </div>
 
-            <div class="grid mt-4 md:grid-cols-3 md:gap-6">
+            <div class="grid mt-4 md:grid-cols-2 md:gap-6">
                 <!-- Code and Price -->
                 <div>
                     <x-input-label for="location" :value="__('Location')" /><span class="text-red-500">*</span>
@@ -53,12 +65,12 @@
                         value="{{ old('rate', $garage->rate) }}" placeholder="rate" />
                     <x-input-error :messages="$errors->get('rate')" class="mt-2" />
                 </div>
-                <div>
+                {{-- <div>
                     <x-input-label for="comment" :value="__('Comment')" />
                     <x-text-input id="comment" class="block w-full mt-1" type="text" name="comment"
                         value="{{ old('comment', $garage->comment) }}" placeholder="comment" />
                     <x-input-error :messages="$errors->get('comment')" class="mt-2" />
-                </div>
+                </div> --}}
             </div>
 
             <div class="grid mt-4 md:grid-cols-2 md:gap-6">
@@ -99,7 +111,7 @@
             </div>
             <div class="mb-5">
                 <x-input-label for="bio" :value="__('Bio')" />
-                <textarea id="bio" name="bio" class="block w-full mt-1 border-2" rows="4">{{ old('bio', $garage->bio) }}</textarea>
+                <textarea id="bio" name="bio" class="block w-full p-2 mt-1 border rounded-md" rows="4">{{ old('bio', $garage->bio) }}</textarea>
             </div>
 
             <div>

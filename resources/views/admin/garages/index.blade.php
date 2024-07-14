@@ -47,11 +47,9 @@
                     <th scope="col" class="px-4 py-3 uppercase">Logo</th>
                     <th scope="col" class="px-4 py-3 uppercase">Banner</th>
                     <th scope="col" class="px-4 py-3 uppercase">location</th>
-                    <th scope="col" class="px-4 py-3 uppercase">user_id</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Owner</th>
                     <th scope="col" class="px-4 py-3 uppercase">like</th>
                     <th scope="col" class="px-4 py-3 uppercase">unlike</th>
-                    <th scope="col" class="px-4 py-3 uppercase">rate</th>
-                    <th scope="col" class="px-4 py-3 uppercase">comment</th>
                     <th scope="col" class="px-4 py-3 uppercase">bio</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -94,8 +92,6 @@
                                     {{ $garage->unlike }}
                                 </div>
                             </x-table-data>
-                            <x-table-data value="{{ $garage->rate }}" />
-                            <x-table-data value="{{ $garage->comment }}" />
                             <x-table-data value="{{ $garage->bio }}" />
 
                             <td class="px-6 py-4">

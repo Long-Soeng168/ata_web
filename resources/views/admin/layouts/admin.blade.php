@@ -457,7 +457,7 @@
                             <span class="ml-3">App Intro</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.promotions.index') }}"
                         class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                         >
@@ -466,7 +466,7 @@
                         class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">promotions</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
                     <li>
                         <x-sidebar-item href="{{ route('admin.dtcs.index') }}"
                         class="{{ request()->is('admin/dtcs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"

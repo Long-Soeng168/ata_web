@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="grid mt-4 md:grid-cols-3 md:gap-6">
+            <div class="grid mt-4 md:grid-cols-2 md:gap-6">
                 <!-- Code and Price -->
                 <div>
                     <x-input-label for="location" :value="__('Location')" /><span class="text-red-500">*</span>
@@ -109,7 +109,7 @@
             </div>
                 <div class="mb-5">
                     <x-input-label for="bio" :value="__('Bio')" />
-                    <textarea id="bio" name="bio" class="block w-full mt-1 border-2" rows="4">{{ old('bio') }}</textarea>
+                    <textarea id="bio" name="bio" class="block w-full p-2 mt-1 border rounded-md" rows="4">{{ old('bio') }}</textarea>
                 </div>
 
                 <div>

@@ -102,9 +102,9 @@ class GarageController extends Controller
      */
     public function edit(string $id)
     {
-        // $users = User::all();
+        $users = User::all();
         $garage = Garage::findOrFail($id);
-        return view('admin.garages.edit', compact('garage',));
+        return view('admin.garages.edit', compact('garage', 'users'));
     }
 
     /**
