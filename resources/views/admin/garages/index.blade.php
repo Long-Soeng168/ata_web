@@ -62,18 +62,29 @@
                             <td class="w-4 px-4 py-3">
                                 {{ $loop->iteration }}
                             </td>
+
                             <x-table-data value="{{ $garage->name }}" />
+
                             <th scope="row" class="items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ $garage->logo ? asset('assets/images/garages/thumb/logo/' . $garage->logo) : asset('assets/images/default/no-pictures.png') }}"
-                                    alt="{{ $garage->logo ? $garage->logo : 'Default Logo' }}"
-                                    class="object-contain h-10 mr-3 aspect-video">
+                                @if ($garage->logo)
+                                    <img src="{{ asset('assets/images/garages/thumb/logo/' . $garage->logo) }}"
+                                        alt="{{ $garage->logo }}" class="object-cover h-10 mr-3 aspect-video">
+                                @else
+                                    <img src="{{ asset('assets/images/default/no-pictures.png') }}" alt="Default Logo"
+                                        class="object-contain h-10 mr-3 aspect-video">
+                                @endif
                             </th>
                             <th scope="row"
                                 class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                                <img src="{{ $garage->banner ? asset('assets/images/garages/thumb/banner/' . $garage->banner) : asset('assets/images/default/no-pictures.png') }}"
-                                    alt="{{ $garage->banner ? $garage->banner : 'Default Banner' }}"
-                                    class="object-contain h-10 mr-3 aspect-video">
+                                @if ($garage->banner)
+                                    <img src="{{ asset('assets/images/garages/thumb/banner/' . $garage->banner) }}"
+                                        alt="{{ $garage->banner }}" class="object-cover h-10 mr-3 aspect-video">
+                                @else
+                                    <img src="{{ asset('assets/images/default/no-pictures.png') }}" alt="Default Banner"
+                                        class="object-contain h-10 mr-3 aspect-video">
+                                @endif
                             </th>
+
 
                             <x-table-data value="{{ $garage->location }}" />
                             <x-table-data value="{{ $garage->user?->name }}" />
