@@ -44,6 +44,18 @@ use App\Http\Controllers\Admin\PdfController;
 // });
 
 
+use App\Http\Controllers\FileExplorerController;
+
+Route::get('/file-explorer', [FileExplorerController::class, 'index'])->name('file.explorer.index');
+Route::post('/file-explorer/upload', [FileExplorerController::class, 'upload'])->name('file.explorer.upload');
+Route::post('/file-explorer/create-folder', [FileExplorerController::class, 'createFolder'])->name('file.explorer.createFolder');
+Route::get('/file-explorer/folder/{path}', [FileExplorerController::class, 'folder'])->name('file.explorer.folder');
+Route::post('/file-explorer/rename', [FileExplorerController::class, 'rename'])->name('file.explorer.rename');
+Route::post('/file-explorer/delete', [FileExplorerController::class, 'delete'])->name('file.explorer.delete');
+
+// ==========
+
+
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('pdfs', PdfController::class);
     Route::get('pdfs/{pdf}/stream', [PdfController::class, 'stream'])->name('pdfs.stream');
