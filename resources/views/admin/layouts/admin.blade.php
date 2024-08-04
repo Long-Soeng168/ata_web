@@ -74,6 +74,12 @@
         }
     </style>
 
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+
 </head>
 
 <body class="min-h-[100vh] font-body">
@@ -619,28 +625,28 @@
                             <span class="ml-3">DTC</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.pdfs.index') }}"
                             class="{{ request()->is('admin/pdfs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/file.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">PDFS</span>
                         </x-sidebar-item>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <x-sidebar-item href="{{ url('/get_resources/documents') }}"
                             class="{{ request()->is('get_resources/documents*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/folder.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">documents</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
                     <li>
                         <x-sidebar-item href="{{ url('/file-explorer') }}"
                             class="{{ request()->is('get_resources/documents*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/folder.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="ml-3">documents Manager</span>
+                            <span class="ml-3">Documents</span>
                         </x-sidebar-item>
                     </li>
                     <li x-data="{

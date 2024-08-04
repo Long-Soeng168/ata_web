@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Storage;
+use Illuminate\Support\Facades\File;
 
 class FileExplorerController extends Controller
 {
     public function index()
     {
-        $files = Storage::files('/Documents');
-        $folders = Storage::directories('/Documents');
-        $path = '/Documents';
+        $files = Storage::files('/documents');
+        $folders = Storage::directories('/documents');
+        $path = '/documents';
 
         return view('file_explorer.index', compact('files', 'folders', 'path'));
     }
@@ -19,12 +20,18 @@ class FileExplorerController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'required|file',
+            'file.*' => 'required|file',
             'path' => 'nullable|string'
         ]);
 
+        // return $request->file('file');
+
         $path = $request->input('path', '/');
-        Storage::putFileAs($path, $request->file('file'), $request->file('file')->getClientOriginalName());
+
+        foreach ($request->file('file') as $file) {
+            Storage::putFileAs($path, $file, $file->getClientOriginalName());
+        }
+        // Storage::putFileAs($path, $request->file('file'), $request->file('file')->getClientOriginalName());
 
         return back();
     }
@@ -95,8 +102,14 @@ class FileExplorerController extends Controller
         $path = rtrim($request->input('path'), '/');
         $fullPath = $path . '/' . $request->input('name');
 
+        // if(Storage::disk('local')->directoryExists($fullPath)){
+        //     return 'folder';
+        // }else{
+        //     return 'file';
+        // }
+
         if (Storage::exists($fullPath)) {
-            if (is_dir($fullPath)) {
+            if (Storage::disk('local')->directoryExists($fullPath)) {
                 Storage::deleteDirectory($fullPath);
             } else {
                 Storage::delete($fullPath);
