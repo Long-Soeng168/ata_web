@@ -11,7 +11,18 @@ class DtcController extends Controller
 {
     public function index()
     {
-        $dtcs = Dtc::paginate(10);
+         $search = $request->search;
+        
+        if ($search) {
+            $dtcs = Dtc::where('dtc_code', 'LIKE', '%' . $search . '%')
+                        ->orWhere('description_en', 'LIKE', '%' . $search . '%')
+                        ->orWhere('description_kh', 'LIKE', '%' . $search . '%')
+                        ->paginate(10);
+        } else {
+            $dtcs = Dtc::paginate(10);
+        }
+        return $dtcs;
+        
         return response()->json($dtcs);
     }
 
