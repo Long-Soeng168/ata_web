@@ -18,19 +18,19 @@
                 <!-- Name Address -->
                 <div>
                     <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                    <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')"
                         required autofocus placeholder="Name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
             </div>
-            
 
-            <div class="my-4 mb-6">
+
+            <div class="mt-4">
                 <div class="flex items-center space-4">
-                    <div class="max-w-40">
-                        <img id="selected-image" src="#" alt="Selected Image" class="max-w-full max-h-40 pr-4" />
-                    </div>
+                    {{-- <div class="max-w-40">
+                        <img id="selected-image" src="#" alt="Selected Image" class="max-w-full pr-4 max-h-40" />
+                    </div> --}}
                     <div class="flex-1">
                         <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
                         <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif"
@@ -39,9 +39,9 @@
                     </div>
                 </div>
             </div>
-            <div class="pt-4">
+            <div class="pt-4 mb-4">
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description') }}</textarea>
+                <textarea id="description" name="description" class="block w-full p-2 mt-1 border" rows="4">{{ old('description') }}</textarea>
             </div>
 
             <div>

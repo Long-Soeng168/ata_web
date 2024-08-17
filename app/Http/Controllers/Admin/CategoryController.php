@@ -69,7 +69,7 @@ class CategoryController extends Controller
                 Image::make($image->getRealPath())->save($imagePath);
 
                 // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
-                Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
+                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
 
                 // Store the filename in the category
                 $category->image = $fileName;
@@ -145,7 +145,7 @@ class CategoryController extends Controller
                 Image::make($image->getRealPath())->save($imagePath);
 
                 // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
-                Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
+                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
 
                 // Store the filename in the category
                 $category->image = $fileName;
