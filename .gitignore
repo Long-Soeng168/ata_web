@@ -5,6 +5,7 @@
 /storage/*.key
 /storage/app/livewire-tmp
 /vendor
+*.DS_Store
 .env
 .env.backup
 .env.production
