@@ -61,8 +61,14 @@ class GaragePostController extends Controller
         $thumbPath = public_path('assets/images/garageposts/thumb/' . $fileName);
 
         try {
-            Image::make($image->getRealPath())->save($imagePath);
-            Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+            // Create an image instance and save the original image
+            $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
+
+            // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+            $uploadedImage->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($thumbPath);
+
             $garagepost->image = $fileName;
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
@@ -128,11 +134,13 @@ class GaragePostController extends Controller
                 mkdir(public_path('assets/images/garageposts/thumb'), 0777, true);
             }
 
-            // Create an image instance and save the original image
-            Image::make($image->getRealPath())->save($imagePath);
+           // Create an image instance and save the original image
+           $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
 
-            // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
-            Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+           // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+           $uploadedImage->resize(500, null, function ($constraint) {
+               $constraint->aspectRatio();
+           })->save($thumbPath);
 
             // Store the filename in the model
             $garagepost->image = $fileName;

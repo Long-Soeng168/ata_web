@@ -12,14 +12,14 @@
                 <!-- Name Address -->
                 <div>
                     <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $appIntro->name)"
+                    <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name', $appIntro->name)"
                         required autofocus placeholder="Name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <!-- Description -->
-                <div class="mb-5">
+                <div class="">
                     <x-input-label for="description" :value="__('Description')" />
-                    <textarea id="description" name="description" class="block w-full mt-1" rows="4">{{ old('description' , $appIntro->description) }}</textarea>
+                    <textarea id="description" name="description" class="block w-full p-2 mt-1 border" rows="4">{{ old('description' , $appIntro->description) }}</textarea>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                 <div class="flex items-center space-4">
                     <div class="max-w-40">
                         <img id="selected-image" src="{{ asset('assets/images/appintros/' . $appIntro->image) }}"
-                            alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                            alt="Selected Image" class="hidden max-w-full pr-4 max-h-40" />
                     </div>
                     <div class="flex-1">
                         <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />

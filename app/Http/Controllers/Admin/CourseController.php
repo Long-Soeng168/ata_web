@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AppIntro;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Image;
 
-class AppIntroController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +16,12 @@ class AppIntroController extends Controller
     {
         $search = $request->search;
         if($search){
-            $appintros = AppIntro::where('name', 'LIKE', "%$search%")->paginate(10);
+            $items = Course::where('name', 'LIKE', "%$search%")->paginate(10);
         }else {
-            $appintros = AppIntro::paginate(10);
+            $items = Course::paginate(10);
         }
-        return view('admin.appintros.index', [
-            'appintros' => $appintros,
+        return view('admin.courses.index', [
+            'items' => $items,
         ]);
     }
 
@@ -30,28 +30,34 @@ class AppIntroController extends Controller
      */
     public function create()
     {
-        return view('admin.appintros.create');
+        return view('admin.courses.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, AppIntro $appIntro)
+    public function store(Request $request, Course $item)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'title' => 'required|max:255',
             'description' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'price' => 'nullable',
+            'start' => 'nullable|date',
+            'end' => 'nullable|date',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $appIntro->name = $request->name;
-        $appIntro->description = $request->description;
+        $item->title = $request->title;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->start = $request->start;
+        $item->end = $request->end;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = public_path('assets/images/appintros/' . $fileName);
-            $thumbPath = public_path('assets/images/appintros/thumb/' . $fileName);
+            $imagePath = public_path('assets/images/courses/' . $fileName);
+            $thumbPath = public_path('assets/images/courses/thumb/' . $fileName);
 
             try {
                // Create an image instance and save the original image
@@ -63,16 +69,16 @@ class AppIntroController extends Controller
                })->save($thumbPath);
 
                 // Store the filename in the category
-                $appIntro->image = $fileName;
+                $item->image = $fileName;
             } catch (Exception $e) {
                 // Handle any errors that may occur during the image processing
                 return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
             }
         }
 
-        $appIntro->save();
+        $item->save();
 
-        return redirect('/admin/appintros')->with('status', 'Add App Intro Successful');
+        return redirect('/admin/courses')->with('status', 'Add App Intro Successful');
     }
 
 
@@ -81,8 +87,8 @@ class AppIntroController extends Controller
      */
     public function show(string $id)
     {
-        $appIntro = AppIntro::findOrFail($id); // Retrieve the appIntro with the given ID
-        return view('admin.appintros.show', compact('appIntro')); // Pass the appIntro object to the view
+        $item = Course::findOrFail($id); // Retrieve the item with the given ID
+        return view('admin.courses.show', compact('item')); // Pass the item object to the view
     }
 
     /**
@@ -90,8 +96,8 @@ class AppIntroController extends Controller
      */
     public function edit(string $id)
     {
-        $appIntro = AppIntro::findOrFail($id); // Retrieve the appIntro with the given ID
-        return view('admin.appintros.edit', compact('appIntro')); // Pass the appIntro object to the view
+        $item = Course::findOrFail($id); // Retrieve the item with the given ID
+        return view('admin.courses.edit', compact('item')); // Pass the item object to the view
     }
 
     /**
@@ -104,13 +110,15 @@ class AppIntroController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|max:255',
             'description' => 'nullable',
-            'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'price' => 'nullable',
+            'start' => 'nullable|date',
+            'end' => 'nullable|date',
         ]);
 
         // Find the product by ID
-        $appIntros = AppIntro::findOrFail($id);
+        $courses = Course::findOrFail($id);
 
         // Get all input data
         $input = $request->all();
@@ -123,8 +131,8 @@ class AppIntroController extends Controller
                 $fileName = time() . '_' . $image->getClientOriginalName();
 
                 // Define paths for the original image and the thumbnail
-                $imagePath = public_path('assets/images/appintros/' . $fileName);
-                $thumbPath = public_path('assets/images/appintros/thumb/' . $fileName);
+                $imagePath = public_path('assets/images/courses/' . $fileName);
+                $thumbPath = public_path('assets/images/courses/thumb/' . $fileName);
 
                 // Create an image instance and save the original image
                 $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
@@ -138,9 +146,9 @@ class AppIntroController extends Controller
                 $input['image'] = $fileName;
 
                 // Remove the old image files
-                if ($appIntros->image) {
-                    @unlink(public_path('assets/images/appintros/' . $appIntros->image));
-                    @unlink(public_path('assets/images/appintros/thumb/' . $appIntros->image));
+                if ($courses->image) {
+                    @unlink(public_path('assets/images/courses/' . $courses->image));
+                    @unlink(public_path('assets/images/courses/thumb/' . $courses->image));
                 }
             } catch (Exception $e) {
                 // Handle any errors that may occur during the image processing
@@ -149,12 +157,12 @@ class AppIntroController extends Controller
         }
 
         // Update the product with the new data
-        $appIntros->update($input);
+        $courses->update($input);
 
 
 
         // Redirect back to the product list with a success message
-        return redirect('/admin/appintros')->with('status', 'Updated Successfully');
+        return redirect('/admin/courses')->with('status', 'Updated Successfully');
     }
 
 
@@ -163,17 +171,17 @@ class AppIntroController extends Controller
      */
     public function destroy(string $id)
     {
-        $appintro = AppIntro::find($id);
-        if (!$appintro) {
+        $item = Course::find($id);
+        if (!$item) {
             return redirect()->back()->withErrors(['error' => 'App Intro not found']);
         }
 
         // Remove the image files
-        @unlink(public_path('assets/images/appintros/' . $appintro->image));
-        @unlink(public_path('assets/images/appintros/thumb/' . $appintro->image));
+        @unlink(public_path('assets/images/courses/' . $item->image));
+        @unlink(public_path('assets/images/courses/thumb/' . $item->image));
 
         // Delete the category
-        $appintro->delete();
+        $item->delete();
 
         return redirect()->back()->with('status', 'Deleted successfully');
     }

@@ -607,6 +607,14 @@
                             <span class="ml-3">App Intro</span>
                         </x-sidebar-item>
                     </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.courses.index') }}"
+                            class="{{ request()->is('admin/courses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <img src="{{ asset('assets/icons/appintro.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="ml-3">Courses</span>
+                        </x-sidebar-item>
+                    </li>
                     {{-- <li>
                         <x-sidebar-item href="{{ route('admin.promotions.index') }}"
                         class="{{ request()->is('admin/promotions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"

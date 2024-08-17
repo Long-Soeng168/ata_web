@@ -55,8 +55,13 @@ class VideoController extends Controller
             $thumbPath = public_path('assets/images/videos/thumb/' . $fileName);
 
             try {
-                Image::make($image->getRealPath())->save($imagePath);
-                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+                // Create an image instance and save the original image
+               $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
+
+               // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+               $uploadedImage->resize(500, null, function ($constraint) {
+                   $constraint->aspectRatio();
+               })->save($thumbPath);
             } catch (Exception $e) {
                 return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
             }
@@ -123,8 +128,13 @@ class VideoController extends Controller
             $thumbPath = public_path('assets/images/videos/thumb/' . $fileName);
 
             try {
-                Image::make($image->getRealPath())->save($imagePath);
-                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+                // Create an image instance and save the original image
+               $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
+
+               // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+               $uploadedImage->resize(500, null, function ($constraint) {
+                   $constraint->aspectRatio();
+               })->save($thumbPath);
             } catch (Exception $e) {
                 return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
             }

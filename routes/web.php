@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AllItemController;
 use App\Http\Controllers\Admin\AppIntroController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\GaragePostController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TypeController;
@@ -109,6 +110,7 @@ Route::group([
     });
 
     Route::resource('appintros', AppIntroController::class);
+    Route::resource('courses', CourseController::class);
     Route::resource('garages', GarageController::class);
     Route::resource('garageposts', GaragePostController::class);
     Route::resource('promotions', PromotionController::class);
@@ -167,16 +169,6 @@ Route::get('/get_resources/{path?}', function ($path = null) {
 | End Admin Routes
 |--------------------------------------------------------------------------
 */
-
-
-
-
-
-
-
-
-
-
 
 
 

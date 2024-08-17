@@ -65,10 +65,12 @@ class VideoCategoryController extends Controller
                 $thumbPath = public_path('assets/images/video_categories/thumb/' . $fileName);
 
                 // Create an image instance and save the original image
-                Image::make($image->getRealPath())->save($imagePath);
+               $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
 
-                // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
-                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+               // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+               $uploadedImage->resize(500, null, function ($constraint) {
+                   $constraint->aspectRatio();
+               })->save($thumbPath);
 
                 // Store the filename in the category
                 $category->image = $fileName;
@@ -141,10 +143,12 @@ class VideoCategoryController extends Controller
                 }
 
                 // Create an image instance and save the original image
-                Image::make($image->getRealPath())->save($imagePath);
+               $uploadedImage = Image::make($image->getRealPath())->save($imagePath);
 
-                // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
-                Image::make($image->getRealPath())->resize(500, null)->save($thumbPath);
+               // Resize the image to 500px in width while maintaining aspect ratio, and save the thumbnail
+               $uploadedImage->resize(500, null, function ($constraint) {
+                   $constraint->aspectRatio();
+               })->save($thumbPath);
 
                 // Store the filename in the model
                 $videoCategory->image = $fileName;
