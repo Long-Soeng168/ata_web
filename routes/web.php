@@ -64,9 +64,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 Route::get('show_pdf_file/{path}', function($path){
     // return $path;
       // Ensure that only authorized users can access the stream
-    if (!auth()->check()) {
-        abort(403);
-    }
+    // if (!auth()->check()) {
+    //     abort(403);
+    // }
 
     $filePath = storage_path($path);
 
