@@ -64,6 +64,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 Route::get('show_pdf_file/{path}', [StreamFileController::class, 'streamPdf'])->where('path', '.*');
+Route::get('show_video_file/{fileName}', [StreamFileController::class, 'streamVideo']);
 
 
 /*
