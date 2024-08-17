@@ -114,9 +114,9 @@ class PdfController extends Controller
 
         $filePath = storage_path($pdf->original_path);
 
-        if (!file_exists($filePath)) {
-            abort(404); // File not found
-        }
+        // if (!file_exists($filePath)) {
+        //     abort(404); // File not found
+        // }
 
         $stream = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($filePath) {
             $stream = fopen($filePath, 'r');

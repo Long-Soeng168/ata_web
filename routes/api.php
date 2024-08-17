@@ -17,6 +17,8 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ModelController;
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FileExploreController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -67,3 +69,11 @@ Route::get('get_posts_by_garage/{id}', [GaragePostController::class, "getPostsBy
 Route::resource('videos_category', VideoCategoryController::class);
 Route::resource('videos', VideoController::class);
 Route::get('get_videos_by_category/{id}', [VideoController::class, "getVideosByCategory"]);
+
+
+Route::get('/file-explorer', [FileExploreController::class, 'index']);
+Route::post('/file-explorer/upload', [FileExploreController::class, 'upload']);
+Route::post('/file-explorer/create-folder', [FileExploreController::class, 'createFolder']);
+Route::get('/file-explorer/folder/{path}', [FileExploreController::class, 'folder']);
+Route::post('/file-explorer/rename', [FileExploreController::class, 'rename']);
+Route::delete('/file-explorer/delete', [FileExploreController::class, 'delete']);
