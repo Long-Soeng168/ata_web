@@ -55,7 +55,7 @@
                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                 </div>
             </div>
-            <div class="grid pt-4 md:grid-cols-2 md:gap-6">
+            <div class="grid pt-4 mb-4 md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full group">
                     <x-input-label for="status" :value="__('Status')" />
                     <x-select-option id="status" name="status">
@@ -83,17 +83,21 @@
 
             </div>
 
-            <div class="grid mt-4 md:grid-cols-1 md:gap-6">
-                <div class="mt-5 mb-5">
-                    <div class="flex items-center space-4">
+            <!-- Image Upload -->
+            <div class="flex items-center mb-4 space-x-4">
+                <div class="flex-1">
+                    <x-input-label for="image" :value="__('Upload Image (max : 2MB)')" />
+                    <x-file-input id="image" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
+                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                </div>
+            </div>
 
-                        <div class="flex-1">
-                            <x-input-label required for="video" :value="__('Upload Video (Optional)')" />
-                            <x-file-input id="dropzone-file" type="file" name="video"
-                                accept="video/mp4, video/avi, video/mov" onchange="displaySelectedImage(event)" />
-                            <x-input-error :messages="$errors->get('video')" class="mt-2" />
-                        </div>
-                    </div>
+            <!-- Video Upload -->
+            <div class="flex items-center mb-4 space-x-4">
+                <div class="flex-1">
+                    <x-input-label for="video" :value="__('Upload Video')" required />
+                    <x-file-input id="dropzone-file" type="file" name="video" accept="video/mp4, video/avi, video/mov" onchange="displaySelectedImage(event)" />
+                    <x-input-error :messages="$errors->get('video')" class="mt-2" />
                 </div>
             </div>
 

@@ -45,6 +45,7 @@
 
 
                     <th scope="col" class="px-4 py-3 uppercase">No</th>
+                    <th scope="col" class="px-4 py-3 uppercase">Image</th>
                     <th scope="col" class="px-4 py-3 uppercase">Title</th>
                     <th scope="col" class="px-4 py-3 uppercase">Category</th>
                     <th scope="col" class="px-4 py-3 uppercase">Status</th>
@@ -56,6 +57,11 @@
                         <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td class="w-4 px-4 py-3">
                                 {{ $loop->iteration }}
+                            </td>
+                            <td scope="row"
+                                class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                <img src="{{ asset('assets/images/videos/thumb/' . $video->image) }}" alt="iMac Front Image"
+                                    class="object-cover h-10 mr-3 aspect-video">
                             </td>
                             <x-table-data value="{{ $video->title }}" />
 

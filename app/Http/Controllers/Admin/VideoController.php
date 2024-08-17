@@ -8,6 +8,8 @@ use App\Models\VideoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use Image;
+
 class VideoController extends Controller
 {
     public function index(Request $request)
@@ -48,13 +50,13 @@ class VideoController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = time() . '_' . $image->getClientOriginalName();
+
             $imagePath = public_path('assets/images/videos/' . $fileName);
             $thumbPath = public_path('assets/images/videos/thumb/' . $fileName);
 
             try {
                 Image::make($image->getRealPath())->save($imagePath);
                 Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
-                $brand->image = $fileName;
             } catch (Exception $e) {
                 return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
             }
@@ -112,6 +114,23 @@ class VideoController extends Controller
             // Update the path in the video model
             $video->video_name = $video_name;
         }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileName = time() . '_' . $image->getClientOriginalName();
+
+            $imagePath = public_path('assets/images/videos/' . $fileName);
+            $thumbPath = public_path('assets/images/videos/thumb/' . $fileName);
+
+            try {
+                Image::make($image->getRealPath())->save($imagePath);
+                Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
+            }
+            $video->image = $fileName;
+        }
+
 
         // Save the updated video record
         $video->save();

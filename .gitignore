@@ -5,6 +5,8 @@
 /storage/*.key
 /storage/app/livewire-tmp
 /vendor
+/public/assets/images
+/storage/videos
 *.DS_Store
 .env
 .env.backup
