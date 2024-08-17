@@ -45,11 +45,27 @@ class VideoController extends Controller
         $file->move($destinationPath, $fileName);
         $video_name = $fileName;
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = public_path('assets/images/videos/' . $fileName);
+            $thumbPath = public_path('assets/images/videos/thumb/' . $fileName);
+
+            try {
+                Image::make($image->getRealPath())->save($imagePath);
+                Image::make($image->getRealPath())->fit(500, null)->save($thumbPath);
+                $brand->image = $fileName;
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors(['error' => 'Image processing failed: ' . $e->getMessage()]);
+            }
+        }
+
         // Save the video information to the database
         Video::create([
             'title' => $request->title,
             'description' => $request->description,
             'video_name' => $video_name,
+            'image' => $fileName,
             'status' => $request->status,
             'category_id' => $request->category_id,
         ]);

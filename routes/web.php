@@ -33,20 +33,14 @@ use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\PdfController;
 
 use App\Http\Controllers\StreamFileController;
+use App\Http\Controllers\FileExplorerController;
+
 
 /*
 |--------------------------------------------------------------------------
+| Admin File Explorer Routes
+|--------------------------------------------------------------------------
 */
-// Make storage:link
-// Route::get('/symlink', function () {
-//     $target = $_SERVER['DOCUMENT_ROOT'] . '/storage/app/public';
-//     $link = $_SERVER['DOCUMENT_ROOT'] . '/public/storage';
-//     symlink($target, $link);
-//     echo "Done";
-// });
-
-
-use App\Http\Controllers\FileExplorerController;
 
 Route::get('/file-explorer', [FileExplorerController::class, 'index'])->name('file.explorer.index');
 Route::post('/file-explorer/upload', [FileExplorerController::class, 'upload'])->name('file.explorer.upload');
@@ -55,13 +49,17 @@ Route::get('/file-explorer/folder/{path}', [FileExplorerController::class, 'fold
 Route::post('/file-explorer/rename', [FileExplorerController::class, 'rename'])->name('file.explorer.rename');
 Route::post('/file-explorer/delete', [FileExplorerController::class, 'delete'])->name('file.explorer.delete');
 
-// ==========
-
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('pdfs', PdfController::class);
     Route::get('pdfs/{pdf}/stream', [PdfController::class, 'stream'])->name('pdfs.stream');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Stream File Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('show_pdf_file/{path}', [StreamFileController::class, 'streamPdf'])->where('path', '.*');
 Route::get('show_video_file/{fileName}', [StreamFileController::class, 'streamVideo']);

@@ -17,25 +17,25 @@
         <div class="grid md:grid-cols-2 md:gap-6">
             <div>
                 <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="Name" />
+                <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus placeholder="Name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="name_kh" :value="__('Name Kh')" /><span class="text-red-500">*</span>
-                <x-text-input id="name_kh" class="block mt-1 w-full" type="text" name="name_kh" :value="old('name_kh')" required autofocus placeholder="Name in Khmer" />
+                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh" :value="old('name_kh')" required autofocus placeholder="Name in Khmer" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
         </div>
         <div>
             <x-input-label for="code" :value="__('Code')" /><span class="text-red-500">*</span>
-            <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus placeholder="Code" />
+            <x-text-input id="code" class="block w-full mt-1" type="text" name="code" :value="old('code')" required autofocus placeholder="Code" />
             <x-input-error :messages="$errors->get('code')" class="mt-2" />
         </div>
 
         <div class="my-4 mb-6">
             <div class="flex items-center space-4">
                 <div class="max-w-40">
-                    <img id="selected-image" src="{{ asset('assets/images/placeholder.jpg') }}" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                    <img id="selected-image" src="{{ asset('assets/images/placeholder.jpg') }}" alt="Selected Image" class="hidden max-w-full pr-4 max-h-40" />
                 </div>
                 <div class="flex-1">
                     <x-input-label for="image" :value="__('Upload Image (max : 2MB)')" />

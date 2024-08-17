@@ -55,6 +55,15 @@
                 </div>
 
             </div>
+            <!-- Image Upload -->
+            <div class="flex items-center space-x-4">
+                <div class="flex-1">
+                    <x-input-label for="image" :value="__('Upload Image (max : 2MB)')" />
+                    <x-file-input id="image" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
+                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                </div>
+            </div>
+
             <!-- Video Upload -->
             <div class="flex items-center space-x-4">
                 <div class="flex-1">
