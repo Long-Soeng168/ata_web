@@ -32,7 +32,7 @@ use App\Http\Controllers\Admin\VideoCategoryController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\PdfController;
 
-use App\Http\Controllers\Admin\StreamFileController;
+use App\Http\Controllers\StreamFileController;
 
 /*
 |--------------------------------------------------------------------------
