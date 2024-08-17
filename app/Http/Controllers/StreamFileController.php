@@ -39,7 +39,7 @@ class StreamFileController extends Controller
         //     abort(403);
         // }
 
-        $filePath = storage_path('videos/original'.$fileName);
+        $filePath = storage_path('videos/original/'.$fileName);
 
         // return $filePath;
         if (!file_exists($filePath)) {
