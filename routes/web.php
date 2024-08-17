@@ -32,6 +32,8 @@ use App\Http\Controllers\Admin\VideoCategoryController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\PdfController;
 
+use App\Http\Controllers\Admin\StreamFileController;
+
 /*
 |--------------------------------------------------------------------------
 */
@@ -61,30 +63,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('pdfs/{pdf}/stream', [PdfController::class, 'stream'])->name('pdfs.stream');
 });
 
-Route::get('show_pdf_file/{path}', function($path){
-    // return $path;
-      // Ensure that only authorized users can access the stream
-    // if (!auth()->check()) {
-    //     abort(403);
-    // }
-
-    $filePath = storage_path($path);
-
-    if (!file_exists($filePath)) {
-        abort(404); // File not found
-    }
-
-    $stream = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($filePath) {
-        $stream = fopen($filePath, 'r');
-        fpassthru($stream);
-        fclose($stream);
-    });
-
-    $stream->headers->set('Content-Type', 'application/pdf');
-    $stream->headers->set('Content-Length', filesize($filePath));
-
-    return $stream;
-})->where('path', '.*');
+Route::get('show_pdf_file/{path}', [StreamFileController::class, 'streamPdf'])->where('path', '.*');
 
 
 /*
