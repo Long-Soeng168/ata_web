@@ -31,7 +31,7 @@ class StreamFileController extends Controller
         return $stream;
     }
 
-    public function streamVideo($path)
+    public function streamVideo($fileName)
     {
 
         // Ensure that only authorized users can access the stream
