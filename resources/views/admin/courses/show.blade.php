@@ -17,7 +17,7 @@
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
             <div class="max-w-md mx-auto shrink-0 lg:max-w-lg">
-              <img class="object-cover w-full aspect-[1/1]" src="{{ asset('assets/images/courses/' . $item->image) }}" alt="" />
+              <img class="object-cover w-full" src="{{ asset('assets/images/courses/' . $item->image) }}" alt="" />
             </div>
 
             <div class="mt-6 sm:mt-8 lg:mt-0">
@@ -33,6 +33,18 @@
 
               <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-800" />
 
+              <p class="mb-6 text-gray-500 dark:text-gray-400">
+                {!! $item->title !!}
+              </p>
+              <p class="mb-6 text-gray-500 dark:text-gray-400">
+                {!! $item->price !!}
+              </p>
+              <p class="mb-6 text-gray-500 dark:text-gray-400">
+                {!! $item->start !!}
+              </p>
+              <p class="mb-6 text-gray-500 dark:text-gray-400">
+                {!! $item->end !!}
+              </p>
               <p class="mb-6 text-gray-500 dark:text-gray-400">
                 {!! $item->description !!}
               </p>

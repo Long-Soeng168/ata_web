@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\BodyTypeController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ModelController;
+use App\Http\Controllers\Api\CourseController;
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileExploreController;
@@ -47,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::resource('dtcs', DtcController::class);
+Route::resource('courses', CourseController::class);
 Route::resource('slides', SlideController::class);
 Route::resource('shops', ShopController::class);
 Route::resource('products', ProductController::class);
