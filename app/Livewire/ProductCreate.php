@@ -35,7 +35,7 @@ class ProductCreate extends Component
         'image' => 'required|image|max:2048', // 2048 KB = 2 MB
         'name' => 'required|string|max:255',
         'price' => 'required|numeric|min:0',
-        'code' => 'required|string|max:255|unique:products,code',
+        'code' => 'nullable|string|max:255|unique:products,code',
         'discount_percent' => 'nullable|numeric|min:0|max:100',
         'description' => 'nullable|string',
         'brand_id' => 'required|exists:brands,id',
