@@ -75,13 +75,13 @@ class ProductEdit extends Component
             // 'image' => 'nullable|image|max:2048', // 2048 KB = 2 MB
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'code' => 'required|string|max:255|unique:products,code,' . $this->productId,
+            'code' => 'nullable|string|max:255|unique:products,code,' . $this->productId,
             'discount_percent' => 'nullable|numeric|min:0|max:100',
             'description' => 'nullable|string',
-            'brand_id' => 'required|exists:brands,id',
-            'model_id' => 'required|exists:models,id',
-            'category_id' => 'required|exists:categories,id',
-            'body_type_id' => 'required|exists:body_types,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'model_id' => 'nullable|exists:models,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'body_type_id' => 'nullable|exists:body_types,id',
             'shop_id' => 'required|exists:shops,id',
         ]);
 
