@@ -142,7 +142,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'discount_percent' => 'nullable|sometimes|numeric',
             'code' => 'nullable|sometimes|string|max:255',
-            'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Image is not required during update
+            // 'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif|max:2048', // Image is not required during update
             'description' => 'nullable|sometimes|string',
             'category_id' => 'nullable|sometimes|integer',
             'sub_category_id' => 'nullable|sometimes|integer',
