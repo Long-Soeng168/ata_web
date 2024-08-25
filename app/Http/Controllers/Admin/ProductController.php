@@ -159,6 +159,8 @@ class ProductController extends Controller
         // Get all input data
         $input = $request->all();
 
+        return $input;
+
         // Handle image upload
         $image = $request->file('image');
         if (!empty($image)) {

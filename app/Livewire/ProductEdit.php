@@ -72,7 +72,7 @@ class ProductEdit extends Component
     public function save()
     {
         $validatedData = $this->validate([
-            'image' => 'nullable|image|max:2048', // 2048 KB = 2 MB
+            // 'image' => 'nullable|image|max:2048', // 2048 KB = 2 MB
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'code' => 'required|string|max:255|unique:products,code,' . $this->productId,
@@ -86,6 +86,7 @@ class ProductEdit extends Component
         ]);
 
         $validatedData['create_by_user_id'] = Auth::id();
+
 
         if ($this->image) {
             try {

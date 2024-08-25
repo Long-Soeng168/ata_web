@@ -7,6 +7,7 @@
 /vendor
 /public/assets/images
 /storage/videos
+/public/livewire/preview-file
 *.DS_Store
 .env
 .env.backup
