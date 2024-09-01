@@ -74,8 +74,8 @@
                                     <x-delete-confirm-button identifier="{{ $slide->id }}"
                                         deleteUrl="{{ route('admin.slides.destroy', $slide->id) }}"
                                         message="Are you sure you want to delete this Item" tooltipText="Delete item" />
-                                    <x-edit-button identifier="{{ $slide->id }}"
-                                        editUrl="{{ route('admin.slides.edit', $slide->id) }}" tooltipText="Edit item" />
+                                    {{-- <x-edit-button identifier="{{ $slide->id }}"
+                                        editUrl="{{ route('admin.slides.edit', $slide->id) }}" tooltipText="Edit item" /> --}}
                                 </div>
                             </td>
                         </tr>
