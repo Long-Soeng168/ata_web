@@ -37,7 +37,7 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">No</th>
-                    <th scope="col" class="px-4 py-3">Image</th>
+                    {{-- <th scope="col" class="px-4 py-3">Image</th> --}}
                     <th scope="col" class="px-4 py-3">Name</th>
                     <th scope="col" class="px-4 py-3">Name KH</th>
                     <th scope="col" class="px-4 py-3">Brand</th>
@@ -50,9 +50,9 @@
                     <td class="w-4 px-4 py-3">
                             {{ $loop->iteration }}
                         </td>
-                    <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{-- <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <img src="{{ asset('assets/images/models/thumb/' . $model->image) }}" alt="{{ $model->name }}" class="w-auto h-10 mr-3">
-                    </th>
+                    </th> --}}
                     <x-table-data value="{{ $model->name }}"/>
                     <x-table-data value="{{ $model->name_kh }}"/>
                     <x-table-data>

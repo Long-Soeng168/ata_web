@@ -47,7 +47,7 @@ class ModelController extends Controller
             'name' => 'required|max:255',
             'name_kh' => 'required|max:255',
             'brand_id' => 'required|exists:brands,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $models = new BrandModel();
@@ -129,7 +129,7 @@ class ModelController extends Controller
             'name' => 'required|max:255',
             'name_kh' => 'required|max:255',
             'brand_id' => 'required|exists:brands,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $model = BrandModel::findOrFail($id);

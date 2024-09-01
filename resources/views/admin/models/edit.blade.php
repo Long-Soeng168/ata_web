@@ -18,12 +18,12 @@
         <div class="grid md:grid-cols-2 md:gap-6">
             <div>
                 <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ old('name', $model->name) }}" required autofocus placeholder="Name" />
+                <x-text-input id="name" class="block w-full mt-1" type="text" name="name" value="{{ old('name', $model->name) }}" required autofocus placeholder="Name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="name_kh" :value="__('Name Kh')" /><span class="text-red-500">*</span>
-                <x-text-input id="name_kh" class="block mt-1 w-full" type="text" name="name_kh" value="{{ old('name_kh', $model->name_kh) }}" required autofocus placeholder="Name in Khmer" />
+                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh" value="{{ old('name_kh', $model->name_kh) }}" required autofocus placeholder="Name in Khmer" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
             <div class="relative z-0 w-full mb-5 group">
@@ -40,13 +40,13 @@
             </div>
         </div>
 
-        <div class="my-4 mb-6">
+        {{-- <div class="my-4 mb-6">
             <div class="flex items-center space-4">
                 <div class="max-w-40">
                     @if ($model->image)
-                        <img id="selected-image" src="{{ asset('assets/images/models/' . $model->image) }}" alt="Selected Image" class="max-w-full max-h-40 pr-4" />
+                        <img id="selected-image" src="{{ asset('assets/images/models/' . $model->image) }}" alt="Selected Image" class="max-w-full pr-4 max-h-40" />
                     @else
-                        <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                        <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full pr-4 max-h-40" />
                     @endif
                 </div>
                 <div class="flex-1">
@@ -54,7 +54,7 @@
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div>
             <x-outline-button href="{{ URL::previous() }}">

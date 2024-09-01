@@ -8,7 +8,7 @@
         <p><strong>Name Kh:</strong> {{ $model->name_kh }}</p>
         <p><strong>Code:</strong> {{ $model->name_kh }}</p>
         <p><strong>Image:</strong></p>
-        <img src="{{ asset('assets/images/models/' . $model->image) }}" alt="model Image" class="max-w-full max-h-40 pr-4" />
+        {{-- <img src="{{ asset('assets/images/models/' . $model->image) }}" alt="model Image" class="max-w-full pr-4 max-h-40" /> --}}
     </div>
     <div>
         <a href="{{ route('admin.models.edit', $model) }}" class="btn btn-primary">Edit</a>
