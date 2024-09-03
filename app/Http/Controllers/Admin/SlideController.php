@@ -13,9 +13,9 @@ class SlideController extends Controller
     {
         $search = $request->search;
         if($search){
-            $slides = Slide::where('name', 'LIKE', "%$search%")->paginate(10);
+            $slides = Slide::where('name', 'LIKE', "%$search%")->orderBy('position')->paginate(10);
         }else {
-            $slides = Slide::paginate(10);
+            $slides = Slide::orderBy('position')->paginate(10);
         }
         return view('admin.slides.index', compact('slides'));
     }
