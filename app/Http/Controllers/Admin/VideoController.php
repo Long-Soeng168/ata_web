@@ -34,7 +34,7 @@ class VideoController extends Controller
         // Validate the request data
         $request->validate([
             'title' => 'required',
-            'video' => 'required|mimes:mp4,avi,mov|max:20000',
+            'video' => 'required|mimes:mp4,avi,mov',
             'description' => 'nullable',
             'status' => 'required|in:free,price',
             'category_id' => 'required',
@@ -96,7 +96,7 @@ class VideoController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'video' => 'nullable|mimes:mp4,avi,mov|max:20000', // Allow null to skip file update
+            'video' => 'nullable|mimes:mp4,avi,mov', // Allow null to skip file update
             'description' => 'nullable',
             'status' => 'required|in:free,price',
             'category_id' => 'required',
