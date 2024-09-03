@@ -46,6 +46,7 @@
                         <th scope="col" class="px-4 py-3">No</th>
                         <th scope="col" class="px-4 py-3">Image</th>
                         <th scope="col" class="px-4 py-3">Name</th>
+                        <th scope="col" class="px-4 py-3">Position</th>
 
                         <th scope="col" class="py-3 text-center">Action</th>
                     </tr>
@@ -62,6 +63,7 @@
                                     class="object-cover h-10 mr-3 aspect-video">
                             </th>
                             <x-table-data value="{{ $slide->name }}" />
+                            <x-table-data value="{{ $slide->position }}" />
 
 
                             <td class="px-6 py-4">
