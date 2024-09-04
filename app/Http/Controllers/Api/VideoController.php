@@ -14,14 +14,36 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search;
-        if ($search) {
-            $videos = Video::where('title', 'LIKE', "%$search%")->paginate(10);
-        } else {
-            $videos = Video::paginate(10);
+        // Retrieve request parameters with defaults
+        $search = $request->input('search', '');
+        $playlistId = $request->input('playlistId');
+        $sortBy = $request->input('sortBy', 'title'); // Default sort by 'id'
+        $sortOrder = $request->input('sortOrder', 'asc'); // Default order 'asc'
+        $perPage = $request->input('perPage', 50); // Default 50 items per page
+
+        // Start building the query
+        $query = Video::query();
+
+        // Apply search filter
+        if (!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%");
         }
+
+        // Apply playlist filter
+        if (!empty($playlistId)) {
+            $query->where('playlist_id', $playlistId);
+        }
+
+        // Apply sorting
+        $query->orderBy($sortBy, $sortOrder);
+
+        // Paginate the results
+        $videos = $query->paginate($perPage);
+
+        // Return JSON response
         return response()->json($videos);
     }
+
 
     /**
      * Show the form for creating a new resource.

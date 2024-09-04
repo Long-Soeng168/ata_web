@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\VideoCategoryController;
+use App\Http\Controllers\Api\VideoPlaylistController;
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Api\GaragePostController;
 use App\Http\Controllers\Api\GarageController;
@@ -69,8 +70,9 @@ Route::resource('garages_posts', GaragePostController::class);
 Route::get('get_posts_by_garage/{id}', [GaragePostController::class, "getPostsByGarage"]);
 
 Route::resource('videos_category', VideoCategoryController::class);
-Route::resource('videos', VideoController::class);
 Route::get('get_videos_by_category/{id}', [VideoController::class, "getVideosByCategory"]);
+Route::resource('videos', VideoController::class);
+Route::resource('videos_playlists', VideoPlaylistController::class);
 
 
 Route::get('/file-explorer', [FileExploreController::class, 'index']);

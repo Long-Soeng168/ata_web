@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\VideoCategory;
+use App\Models\VideoPlaylist;
 use Exception;
 use Illuminate\Http\Request;
 use Image;
@@ -17,9 +18,9 @@ class VideoCategoryController extends Controller
     {
         $search = $request->search;
         if($search){
-            $video_categories = VideoCategory::where('name', 'LIKE', "%$search%")->paginate(10);
+            $video_categories = VideoPlaylist::where('name', 'LIKE', "%$search%")->paginate(10);
         }else {
-            $video_categories = VideoCategory::paginate(10);
+            $video_categories = VideoPlaylist::paginate(10);
         }
         return view('admin.video_categories.index', [
             'video_categories' => $video_categories,

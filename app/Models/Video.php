@@ -11,8 +11,8 @@ class Video extends Model
 
     protected $guarded = [];
 
-    public function videocategory()
+    public function playlist()
     {
-        return $this->belongsTo(VideoCategory::class, 'category_id', 'id');
+        return $this->belongsTo(VideoPlaylist::class, 'playlist_id', 'id');
     }
 }
