@@ -9,18 +9,24 @@ use Illuminate\Support\Facades\Validator;
 
 class DtcController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $dtcs = Dtc::paginate(10);
+        $search = $request->input('search'); // Search term from the request
+        $dtcs = Dtc::when($search, function ($queryBuilder) use ($search) {
+            return $queryBuilder->where('dtc_code', 'LIKE', "%$search%"); // Searching by 'dtc_code'
+        })->paginate(10);  // Pagination with 10 results per page
+
         return response()->json($dtcs);
     }
+
+
 
     public function show($dtc_code)
     {
         $dtc = Dtc::where('dtc_code', $dtc_code)->first();
         return response()->json($dtc);
     }
- 
+
     public function store(Request $request)
     {
         // Validation rules
@@ -62,7 +68,7 @@ class DtcController extends Controller
         $dtc = Dtc::where('id', $id)->first();
         return response()->json($dtc, 200);
     }
-    
+
     public function destroy($id)
     {
         Dtc::findOrFail($id)->delete();
