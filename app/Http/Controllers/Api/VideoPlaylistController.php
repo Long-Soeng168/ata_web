@@ -16,10 +16,10 @@ class VideoPlaylistController extends Controller
         $search = $request->search;
         if($search){
             $videoPlaylists = VideoPlaylist::where('name', 'LIKE', "%$search%")
-                                ->with('teacher')
+                                ->with('teacher')->withCount('videos')
                                 ->paginate(10);
         }else {
-            $videoPlaylists = VideoPlaylist::with('teacher')
+            $videoPlaylists = VideoPlaylist::with('teacher')->withCount('videos')
                                 ->paginate(10);
         }
         return response()->json($videoPlaylists);
