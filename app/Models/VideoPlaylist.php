@@ -22,4 +22,9 @@ class VideoPlaylist extends Model
         return $this->belongsTo(VideoCategory::class, 'category_id', 'id');
     }
 
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
+    }
+
 }
