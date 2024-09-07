@@ -66,6 +66,9 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
+        $video->update([
+            'views_count' => $video->views_count + 1
+        ]);
         return response()->json($video);
     }
 
