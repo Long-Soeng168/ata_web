@@ -38,6 +38,8 @@ class ProductController extends Controller
         $query->orderBy($sortBy, $sortOrder);
 
         // Paginate the results
+        $query->select('id', 'name', 'image', 'price', 'is_instock');
+
         $products = $query->paginate($perPage);
 
         return response()->json($products);
