@@ -18,7 +18,7 @@ class ProductController extends Controller
         $search = $request->input('search', '');
         $categoryId = $request->input('categoryId');
         $sortBy = $request->input('sortBy', 'id'); // Default sort by 'id'
-        $sortOrder = $request->input('sortOrder', 'asc'); // Default order 'asc'
+        $sortOrder = $request->input('sortOrder', 'desc'); // Default order 'asc'
         $perPage = $request->input('perPage', 10); // Default 50 items per page
 
         // Start building the query
