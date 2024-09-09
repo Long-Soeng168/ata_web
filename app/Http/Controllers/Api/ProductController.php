@@ -12,7 +12,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Retrieve request parameters with defaults
         $search = $request->input('search', '');
