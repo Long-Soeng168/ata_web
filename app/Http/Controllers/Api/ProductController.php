@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         // Apply search filter
         if (!empty($search)) {
-            $query->where('title', 'LIKE', "%{$search}%");
+            $query->where('name', 'LIKE', "%{$search}%");
         }
 
         // Apply playlist filter
