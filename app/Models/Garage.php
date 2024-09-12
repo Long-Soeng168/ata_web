@@ -27,4 +27,9 @@ class Garage extends Model
     {
         return $this->hasMany(GaragePost::class);
     }
+
+    public function expert()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+    }
 }
