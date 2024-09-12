@@ -31,7 +31,7 @@ class ProductController extends Controller
 
         // Apply playlist filter
         if (!empty($categoryId)) {
-            $query->where('playlist_id', $categoryId);
+            $query->where('category_id', $categoryId);
         }
 
         // Apply sorting
