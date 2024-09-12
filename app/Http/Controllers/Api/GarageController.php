@@ -15,9 +15,9 @@ class GarageController extends Controller
     {
         $search = $request->search;
         if($search){
-            $garages = Garage::where('name', 'LIKE', "%$search%")->paginate(10);
+            $garages = Garage::where('name', 'LIKE', "%$search%")->with('expert')->paginate(10);
         }else {
-            $garages = Garage::paginate(10);
+            $garages = Garage::with('expert')->paginate(10);
         }
         return response()->json($garages ? $garages : '');
     }
@@ -43,7 +43,7 @@ class GarageController extends Controller
      */
     public function show(string $id)
     {
-        $garage = Garage::find($id);
+        $garage = Garage::with('expert')->find($id);
         return response()->json($garage);
     }
 
