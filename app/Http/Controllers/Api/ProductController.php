@@ -38,10 +38,30 @@ class ProductController extends Controller
         $query->orderBy($sortBy, $sortOrder);
 
         // Paginate the results
-        $query->select('id', 'name', 'image', 'price', 'is_instock');
+        $query->select('id', 'name', 'image', 'price', 'is_instock', 'category_id');
 
         $products = $query->paginate($perPage);
 
+        return response()->json($products);
+    }
+    public function relatedProducts($id)
+    {
+        // Find the product by its ID or throw a 404 error
+        $product = Product::findOrFail($id);
+
+        // Number of products per page (define the $perPage variable)
+        $perPage = 10;
+
+        // Query to get products in the same category, excluding the current product
+        $query = Product::where('category_id', $product->category_id)
+                        ->where('id', '!=', $product->id)
+                        ->orderBy('id', 'desc');
+
+        // Select the necessary columns and paginate
+        $products = $query->select('id', 'name', 'image', 'price', 'is_instock')
+                        ->paginate($perPage);
+
+        // Return the paginated products as a JSON response
         return response()->json($products);
     }
 
