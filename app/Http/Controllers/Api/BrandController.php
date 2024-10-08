@@ -13,7 +13,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::latest()->get();
+        $brands = Brand::orderBy('name')->orderBy('name_kh')->get();
         return response()->json($brands);
     }
 
