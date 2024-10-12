@@ -16,6 +16,9 @@ class CreateShopsTable extends Migration
             $table->text('description')->nullable();
             $table->text('description_kh')->nullable();
             $table->string('phone')->nullable();
+            $table->string('cellcard')->nullable();
+            $table->string('smart')->nullable();
+            $table->string('metfone')->nullable();
             $table->string('address')->nullable();
             $table->decimal('vat_percent', 5, 2)->nullable()->default(0);
             $table->decimal('exchange_rate_riel', 10, 2)->default(4100);
