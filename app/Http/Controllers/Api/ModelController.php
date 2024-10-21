@@ -14,7 +14,16 @@ class ModelController extends Controller
      */
     public function index()
     {
-        $models = BrandModel::latest()->get();
+        $brandId = $request->input('brandId');
+
+        $query = BrandModel::query();
+
+        if (!empty($brandId)) {
+            $query->where('brand_id', $brandId);
+        }
+
+        $models = $query->latest()->get();
+
         return response()->json($models);
     }
 
