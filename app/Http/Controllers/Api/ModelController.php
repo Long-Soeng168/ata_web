@@ -12,7 +12,7 @@ class ModelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $brandId = $request->input('brandId');
 
