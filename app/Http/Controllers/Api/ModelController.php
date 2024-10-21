@@ -27,10 +27,10 @@ class ModelController extends Controller
         return response()->json($models);
     }
 
-    public function getModelsByBrand(String $brand_id){
-        $models = BrandModel::where('brand_id', $brand_id)->latest()->get();
-        return response()->json($models);
-    }
+    // public function getModelsByBrand(String $brand_id){
+    //     $models = BrandModel::where('brand_id', $brand_id)->latest()->get();
+    //     return response()->json($models);
+    // }
 
     /**
      * Show the form for creating a new resource.
