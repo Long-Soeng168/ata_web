@@ -17,6 +17,7 @@ class ProductController extends Controller
         // Retrieve request parameters with defaults
         $search = $request->input('search', '');
         $categoryId = $request->input('categoryId');
+        $bodyTypeId = $request->input('bodyTypeId');
         $brandId = $request->input('brandId');
         $brandModelId = $request->input('brandModelId');
         $sortBy = $request->input('sortBy', 'id'); // Default sort by 'id'
@@ -35,10 +36,14 @@ class ProductController extends Controller
         if (!empty($categoryId)) {
             $query->where('category_id', $categoryId);
         }
+        if (!empty($bodyTypeId)) {
+            $query->where('body_type_id', $bodyTypeId);
+        }
 
         if (!empty($brandId)) {
             $query->where('brand_id', $brandId);
         }
+
         if (!empty($brandModelId)) {
             $query->where('model_id', $brandModelId);
         }
