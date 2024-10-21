@@ -22,7 +22,7 @@ class ModelController extends Controller
             $query->where('brand_id', $brandId);
         }
 
-        $models = $query->latest()->get();
+        $models = $query->orderBy('name', 'ASC')->get();
 
         return response()->json($models);
     }

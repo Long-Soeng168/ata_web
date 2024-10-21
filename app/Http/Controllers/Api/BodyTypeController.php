@@ -14,7 +14,7 @@ class BodyTypeController extends Controller
      */
     public function index()
     {
-        $bodyTypes = BodyType::latest()->get();
+        $bodyTypes = BodyType::orderBy('name', 'ASC')->get();
         return response()->json($bodyTypes);
     }
 
