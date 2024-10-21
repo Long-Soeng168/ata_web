@@ -17,6 +17,7 @@ class ProductController extends Controller
         // Retrieve request parameters with defaults
         $search = $request->input('search', '');
         $categoryId = $request->input('categoryId');
+        $brandId = $request->input('brandId');
         $sortBy = $request->input('sortBy', 'id'); // Default sort by 'id'
         $sortOrder = $request->input('sortOrder', 'desc'); // Default order 'asc'
         $perPage = $request->input('perPage', 10); // Default 50 items per page
@@ -34,11 +35,15 @@ class ProductController extends Controller
             $query->where('category_id', $categoryId);
         }
 
+        if (!empty($brandId)) {
+            $query->where('brand_id', $brandId);
+        }
+
         // Apply sorting
         $query->orderBy($sortBy, $sortOrder);
 
         // Paginate the results
-        $query->select('id', 'name', 'image', 'price', 'is_instock', 'category_id');
+        // $query->select('id', 'name', 'image', 'price', 'is_instock', 'category_id');
 
         $products = $query->paginate($perPage);
 
