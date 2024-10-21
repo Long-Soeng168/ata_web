@@ -18,6 +18,7 @@ class ProductController extends Controller
         $search = $request->input('search', '');
         $categoryId = $request->input('categoryId');
         $brandId = $request->input('brandId');
+        $brandModelId = $request->input('brandModelId');
         $sortBy = $request->input('sortBy', 'id'); // Default sort by 'id'
         $sortOrder = $request->input('sortOrder', 'desc'); // Default order 'asc'
         $perPage = $request->input('perPage', 10); // Default 50 items per page
@@ -37,6 +38,9 @@ class ProductController extends Controller
 
         if (!empty($brandId)) {
             $query->where('brand_id', $brandId);
+        }
+        if (!empty($brandModelId)) {
+            $query->where('model_id', $brandModelId);
         }
 
         // Apply sorting
