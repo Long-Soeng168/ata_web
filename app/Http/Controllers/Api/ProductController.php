@@ -19,6 +19,7 @@ class ProductController extends Controller
         $categoryId = $request->input('categoryId');
         $bodyTypeId = $request->input('bodyTypeId');
         $brandId = $request->input('brandId');
+        $shopId = $request->input('shopId');
         $brandModelId = $request->input('brandModelId');
         $sortBy = $request->input('sortBy', 'id'); // Default sort by 'id'
         $sortOrder = $request->input('sortOrder', 'desc'); // Default order 'asc'
@@ -42,6 +43,10 @@ class ProductController extends Controller
 
         if (!empty($brandId)) {
             $query->where('brand_id', $brandId);
+        }
+
+        if (!empty($shopId)) {
+            $query->where('shop_id', $shopId);
         }
 
         if (!empty($brandModelId)) {
