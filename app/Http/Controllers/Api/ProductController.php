@@ -77,8 +77,7 @@ class ProductController extends Controller
                         ->orderBy('id', 'desc');
 
         // Select the necessary columns and paginate
-        $products = $query->select('id', 'name', 'image', 'price', 'is_instock')
-                        ->paginate($perPage);
+        $products = $query->paginate($perPage);
 
         // Return the paginated products as a JSON response
         return response()->json($products);
