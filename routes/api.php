@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\CourseController;
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileExploreController;
+use App\Models\Shop;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,16 +37,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->get('/user_shop', function (Request $request) {
+    // Get the authenticated user
+    $user = $request->user();
+
+    // Find the shop for the authenticated user
+    $shop = Shop::where('owner_user_id', $user->id)->first();
+
+    // If no shop is found, return an appropriate message or null
+    if (!$shop) {
+        return response()->json(['message' => 'No shop found for this user'], 404);
+    }
+
+    // Return the shop details if found
+    return response()->json($shop);
+});
+
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-
-// Routes that require authentication
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::put('/users/{id}', [AuthController::class, 'update']);
-});
-
 
 
 Route::resource('dtcs', DtcController::class);
@@ -82,3 +92,13 @@ Route::post('/file-explorer/create-folder', [FileExploreController::class, 'crea
 Route::get('/file-explorer/folder/{path}', [FileExploreController::class, 'folder']);
 Route::post('/file-explorer/rename', [FileExploreController::class, 'rename']);
 Route::delete('/file-explorer/delete', [FileExploreController::class, 'delete']);
+
+
+// Routes that require authentication
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/users/{id}', [AuthController::class, 'update']);
+    
+    Route::post('shops', [ShopController::class, 'store']); 
+    Route::post('products', [ShopController::class, 'storeProduct']);
+});

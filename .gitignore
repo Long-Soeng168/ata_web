@@ -5,8 +5,8 @@
 /storage/*.key
 /storage/app/livewire-tmp
 /vendor
-/public/assets/images
-/storage/videos
+/public/assets
+/storage
 /public/livewire/preview-file
 *.DS_Store
 .env
