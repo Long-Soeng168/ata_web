@@ -18,7 +18,6 @@ class ShopController extends Controller
 
     public function create()
     {
-        // return view('admin.shops.create');
     }
 
     public function show(String $id)
