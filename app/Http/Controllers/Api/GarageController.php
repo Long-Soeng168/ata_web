@@ -12,14 +12,28 @@ class GarageController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $search = $request->search;
-        if($search){
-            $garages = Garage::where('name', 'LIKE', "%$search%")->with('expert')->paginate(10);
-        }else {
-            $garages = Garage::with('expert')->paginate(10);
+    { 
+        
+        $search = $request->input('search');
+        $expertId = $request->input('expertId');
+    
+        $query = Garage::with('expert');
+    
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%$search%")
+                  ->orWhere('address', 'LIKE', "%$search%")
+                  ->orWhere('bio', 'LIKE', "%$search%");
+            });
         }
-        return response()->json($garages ? $garages : '');
+    
+        if ($expertId) {
+            $query->where('brand_id', $expertId);
+        }
+    
+        $garages = $query->paginate(10);
+    
+        return response()->json($garages); 
     }
 
     /**
