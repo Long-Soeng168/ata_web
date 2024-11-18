@@ -175,7 +175,12 @@ class ShopController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'price' => 'required', 
+            'categoryId' => 'required', 
+            'bodyTypeId' => 'required', 
+            'brandId' => 'required', 
+            'brandModelId' => 'required', 
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048', 
+            'description' => 'required|string',
         ]);
     
         if ($validator->fails()) {
@@ -219,6 +224,11 @@ class ShopController extends Controller
             $product = Product::create([
                 'name' => $request->input('name'),
                 'price' => $request->input('price'), 
+                'description' => $request->input('description'), 
+                'category_id' => $request->input('categoryId'), 
+                'body_type_id' => $request->input('bodyTypeId'), 
+                'brand_id' => $request->input('brandId'), 
+                'model_id' => $request->input('brandModelId'), 
                 'image' => $imageName,  
             ]);
              
