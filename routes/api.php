@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->get('/user_shop', function (Request $request)
     $user = $request->user();
 
     // Find the shop for the authenticated user
-    $shop = Shop::where('owner_user_id', $user->id)->first();
+    $shop = Shop::where('id', $user->shop_id)->first();
 
     // If no shop is found, return an appropriate message or null
     if (!$shop) {
@@ -100,5 +100,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/{id}', [AuthController::class, 'update']);
     
     Route::post('shops', [ShopController::class, 'store']); 
+    Route::post('shops/{id}', [ShopController::class, 'update']); 
     Route::post('products', [ShopController::class, 'storeProduct']);
+    Route::post('products/{id}', [ShopController::class, 'updateProduct']);
+    Route::get('products/{id}/delete', [ShopController::class, 'deleteProduct']);
 });
