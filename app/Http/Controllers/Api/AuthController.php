@@ -70,6 +70,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'image' => 'user.png',
         ]);
+        
+        $user->assignRole('user');
 
         $token = $user->createToken('AuthToken')->plainTextToken;
 

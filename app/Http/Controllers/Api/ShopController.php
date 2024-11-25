@@ -27,8 +27,8 @@ class ShopController extends Controller
             'description' => 'required|string|max:1000',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048', // Validate logo image
-            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048', // Validate banner image
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000', // Validate logo image
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000', // Validate banner image
         ]);
     
         if ($validator->fails()) {
@@ -106,6 +106,7 @@ class ShopController extends Controller
             $user->update([
                 'shop_id' => $shop->id,
             ]);
+            $user->assignRole('shop');
     
             return response()->json([
                 'success' => true,
@@ -248,7 +249,7 @@ class ShopController extends Controller
             'bodyTypeId' => 'required', 
             'brandId' => 'required', 
             'brandModelId' => 'required', 
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000', 
             'description' => 'required|string',
         ]);
     

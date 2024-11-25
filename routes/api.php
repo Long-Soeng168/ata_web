@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileExploreController;
 use App\Models\Shop;
+use App\Models\Payment;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,9 +94,15 @@ Route::get('/file-explorer/folder/{path}', [FileExploreController::class, 'folde
 Route::post('/file-explorer/rename', [FileExploreController::class, 'rename']);
 Route::delete('/file-explorer/delete', [FileExploreController::class, 'delete']);
 
+ Route::get('/payment', function(){
+     $payment = Payment::first();
+        return response()->json($payment);
+    });
+
 
 // Routes that require authentication
 Route::middleware('auth:sanctum')->group(function () {
+   
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/users/{id}', [AuthController::class, 'update']);
     
@@ -104,4 +111,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('products', [ShopController::class, 'storeProduct']);
     Route::post('products/{id}', [ShopController::class, 'updateProduct']);
     Route::get('products/{id}/delete', [ShopController::class, 'deleteProduct']);
+    
+    Route::post('submit_order_video_playlist', [VideoPlaylistController::class, 'storeOrderVideoPlaylist']);
+    Route::get('playlists_user', [VideoPlaylistController::class, 'playlistUser']);
 });

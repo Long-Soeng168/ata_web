@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Video;
+use App\Models\VideoPlaylistUser;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 

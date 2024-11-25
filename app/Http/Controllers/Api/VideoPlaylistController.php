@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\VideoPlaylist;
+use App\Models\VideoPlaylistUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Image;
 
 class VideoPlaylistController extends Controller
 {
@@ -36,10 +39,85 @@ class VideoPlaylistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function playlistUser(Request $request){
+        $userId = $request->user()->id;
+        $playlists = VideoPlaylistUser::where('user_id', $userId)
+                                        ->where('status', 1)
+                                        ->pluck('playlists_id')
+                                        ->toArray();
+                                        
+        $result = array_map('intval', array_merge(...array_map(fn($item) => explode(',', $item), $playlists)));
+        return response()->json($result);
     }
+    
+    public function storeOrderVideoPlaylist(Request $request)
+    { 
+        $validator = Validator::make($request->all(), [
+            'playlists_id' => 'required',
+            'price' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 400);
+        }
+         
+        // return $request->all();
+    
+        try { 
+            // Store images if they are provided  
+            $imageName;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $fileName = time() . '_' . $image->getClientOriginalName();
+                $imagePath = public_path('assets/images/video_playlists_order_transactions/' . $fileName); 
+                $thumbPath = public_path('assets/images/video_playlists_order_transactions/thumb/' . $fileName);
+    
+                try {
+                    // Create an image instance and save the original image
+                   $uploadedImage = Image::make($image->getRealPath())->save($imagePath); 
+                   
+                   $uploadedImage->resize(800, null, function ($constraint) {
+                       $constraint->aspectRatio();
+                   })->save($thumbPath);
+    
+                    // Store the filename in the category
+                    $imageName = $fileName;
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Fail to Save Image.',
+                    ], 500);
+                }
+            }
+            
+             
+            
+            $product = VideoPlaylistUser::create([
+                'playlists_id' => $request->input('playlists_id'),
+                'price' => $request->input('price'),
+                'transaction_image' => $imageName,  
+                'user_id' => $request->user()->id,
+            ]); 
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Order successfully', 
+            ], 200);
+    
+        } catch (\Exception $e) {
+            // Handle any error that occurs during the process
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating Order: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    
 
     /**
      * Display the specified resource.
