@@ -23,6 +23,10 @@ use App\Http\Controllers\Api\FileExploreController;
 use App\Models\Shop;
 use App\Models\Payment;
 
+use App\Http\Controllers\Api\ItemController;
+
+Route::Resource('items', ItemController::class);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

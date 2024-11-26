@@ -7,7 +7,10 @@ use App\Models\VideoPlaylist;
 use App\Models\VideoPlaylistUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Image;
+use Image; 
+            
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\MyTelegramBotNotification; 
 
 class VideoPlaylistController extends Controller
 {
@@ -96,12 +99,21 @@ class VideoPlaylistController extends Controller
             
              
             
-            $product = VideoPlaylistUser::create([
+            $videoPlaylistUserCreated = VideoPlaylistUser::create([
                 'playlists_id' => $request->input('playlists_id'),
                 'price' => $request->input('price'),
                 'transaction_image' => $imageName,  
                 'user_id' => $request->user()->id,
             ]); 
+            
+
+            try {
+                Notification::route('telegram', config('services.telegram_chat_id'))
+                    ->notify(new MyTelegramBotNotification($videoPlaylistUserCreated));
+            } catch (\Exception $e) {
+                // Log::error('Notification failed: ' . $e->getMessage());
+            } 
+
     
             return response()->json([
                 'success' => true,
