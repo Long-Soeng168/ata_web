@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileExploreController;
 use App\Models\Shop;
+use App\Models\Garage;
 use App\Models\Payment;
 
 use App\Http\Controllers\Api\ItemController;
@@ -58,6 +59,22 @@ Route::middleware('auth:sanctum')->get('/user_shop', function (Request $request)
     return response()->json($shop);
 });
 
+Route::middleware('auth:sanctum')->get('/user_garage', function (Request $request) {
+    // Get the authenticated user
+    $user = $request->user();
+
+    // Find the shop for the authenticated user
+    $garage = Garage::where('id', $user->garage_id)->with('expert')->first();
+
+    // If no shop is found, return an appropriate message or null
+    if (!$garage) {
+        return response()->json(['message' => 'No garage found for this user'], 404);
+    }
+
+    // Return the shop details if found
+    return response()->json($garage);
+});
+
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -88,6 +105,7 @@ Route::get('get_posts_by_garage/{id}', [GaragePostController::class, "getPostsBy
 Route::resource('videos_category', VideoCategoryController::class);
 Route::get('get_videos_by_category/{id}', [VideoController::class, "getVideosByCategory"]);
 Route::resource('videos', VideoController::class);
+Route::get('training_videos', [VideoController::class, 'trainingVideos']);
 Route::resource('videos_playlists', VideoPlaylistController::class);
 
 
@@ -110,11 +128,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/users/{id}', [AuthController::class, 'update']);
     
-    Route::post('shops', [ShopController::class, 'store']); 
+    Route::post('shops', [ShopController::class, 'store']);  
     Route::post('shops/{id}', [ShopController::class, 'update']); 
     Route::post('products', [ShopController::class, 'storeProduct']);
     Route::post('products/{id}', [ShopController::class, 'updateProduct']);
     Route::get('products/{id}/delete', [ShopController::class, 'deleteProduct']);
+    
+    Route::post('garages', [GarageController::class, 'store']); 
+    Route::post('garages/{id}', [GarageController::class, 'update']); 
+    Route::post('garages_posts', [GaragePostController::class, 'store']);
+    Route::post('garages_posts/{id}', [GaragePostController::class, 'update']);
+    Route::get('garages_posts/{id}/delete', [GaragePostController::class, 'destroy']);
     
     Route::post('submit_order_video_playlist', [VideoPlaylistController::class, 'storeOrderVideoPlaylist']);
     Route::get('playlists_user', [VideoPlaylistController::class, 'playlistUser']);
