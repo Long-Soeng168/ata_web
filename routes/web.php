@@ -97,7 +97,6 @@ Route::group([
 
     Route::resource('settings', SettingsController::class);
 
-
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
     Route::resource('shops', ShopController::class);
@@ -217,8 +216,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect('admin/dashboard');
+    return view('welcome');
+    // return redirect('admin/dashboard');
 });
 
 Route::get('/dashboard', function () {
