@@ -89,6 +89,21 @@
             </div>
         </section>
 
+        <section class="p-12 mb-24 text-center rounded-3xl">
+            <h2 class="mb-6 text-4xl font-bold text-gray-800">Privacy Policy</h2>
+            <div class="max-w-3xl mx-auto space-y-4 text-left text-gray-800">
+                <p>We respect your privacy and are committed to protecting your personal data. Any information you share
+                    with us — such as your email or contact details — will only be used to improve your experience and
+                    keep you informed.</p>
+                <p>We do not share or sell your data to third parties. Your trust is important to us, and we take
+                    security seriously.</p>
+                <p>By using our app or subscribing to our services, you agree to our data practices as outlined here.
+                    For questions or concerns, feel free to <a href="mailto:longsoeng017@gmail.com"
+                        class="text-black underline">contact us</a>.</p>
+            </div>
+        </section>
+
+
 
         <section class="text-center">
             <h2 class="mb-4 text-4xl font-bold text-black">Get Started Now</h2>
